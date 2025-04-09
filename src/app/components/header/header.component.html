@@ -1,0 +1,40 @@
+<header class="header">
+  <div class="header-left">
+    <h1 class="page-title">Shipping Management System</h1>
+  </div>
+  
+  <div class="header-right">
+    <div class="search-container">
+      <i class="bi bi-search search-icon"></i>
+      <input 
+        type="text" 
+        class="search-input" 
+        placeholder="Search for something" 
+        [(ngModel)]="searchQuery"
+        (keyup.enter)="search()"
+      >
+    </div>
+    
+    <div class="header-actions">
+      <button class="icon-button">
+        <i class="bi bi-gear"></i>
+      </button>
+      
+      <div class="notification-button">
+        <button class="icon-button">
+          <i class="bi bi-bell"></i>
+        </button>
+        <span *ngIf="notificationCount > 0" class="notification-badge">
+          {{notificationCount}}
+        </span>
+      </div>
+      
+      <div class="user-profile">
+        <img 
+          src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-oK8OyiX7Y6b1dG2jOw9Tybea6y4ON6.png" 
+          alt="User Profile"
+        >
+      </div>
+    </div>
+  </div>
+</header>
