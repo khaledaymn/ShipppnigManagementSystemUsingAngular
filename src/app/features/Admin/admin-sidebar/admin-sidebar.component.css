@@ -1,0 +1,341 @@
+/* Enhanced Admin Sidebar Styles */
+.nav-item-with-submenu {
+  position: relative;
+  margin-bottom: 5px;
+  width: 100%;
+}
+
+.nav-link {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  width: 100%;
+  text-align: left;
+}
+
+.nav-link:hover {
+  background-color: rgba(45, 96, 255, 0.08);
+}
+
+.nav-link.active {
+  background: linear-gradient(90deg, rgba(45, 96, 255, 0.12) 0%, rgba(45, 96, 255, 0.08) 100%);
+  border-left: 3px solid #2d60ff;
+  color: #2d60ff;
+  font-weight: 600;
+}
+
+.submenu-icon {
+  margin-left: auto;
+  transition: transform 0.3s ease;
+  font-size: 14px;
+  opacity: 0.7;
+}
+
+.submenu-icon.rotated {
+  transform: rotate(180deg);
+  opacity: 1;
+}
+
+.submenu {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 8px 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0;
+  width: 100%;
+  position: relative;
+  left: 0;
+}
+
+.submenu.expanded {
+  max-height: 500px;
+  opacity: 1;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+.submenu-item {
+  margin: 4px 0;
+  position: relative;
+  width: 100%;
+}
+
+.submenu-link {
+  display: flex;
+  align-items: center;
+  padding: 8px 10px 8px 40px;
+  color: #64748b;
+  text-decoration: none;
+  border-radius: 6px;
+  margin: 0;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  text-align: left;
+}
+
+.submenu-link:hover {
+  background-color: rgba(45, 96, 255, 0.08);
+  color: #2d60ff;
+}
+
+.submenu-link.active {
+  background-color: rgba(45, 96, 255, 0.1);
+  color: #2d60ff;
+  font-weight: 600;
+}
+
+.submenu-link i {
+  font-size: 14px;
+  margin-right: 10px;
+  width: 16px;
+  text-align: center;
+  color: inherit;
+}
+
+/* Badge for new items or notifications */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 9999px;
+  margin-left: auto;
+}
+
+.badge-primary {
+  background-color: #2d60ff;
+  color: white;
+}
+
+.badge-success {
+  background-color: #10b981;
+  color: white;
+}
+
+.badge-warning {
+  background-color: #f59e0b;
+  color: white;
+}
+
+/* Section divider */
+.section-divider {
+  display: flex;
+  align-items: center;
+  margin: 16px 16px 8px;
+  color: #94a3b8;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-align: left;
+}
+
+.section-divider::before,
+.section-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background-color: #e2e8f0;
+}
+
+.section-divider::before {
+  margin-right: 8px;
+}
+
+.section-divider::after {
+  margin-left: 8px;
+}
+
+/* Enhanced collapsed state submenu styles */
+:host-context(.sidebar.collapsed) .nav-item-with-submenu {
+  position: relative;
+}
+
+:host-context(.sidebar.collapsed) .submenu {
+  display: none;
+  position: absolute;
+  left: 70px;
+  top: 0;
+  background-color: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+  width: 220px;
+  max-height: none;
+  opacity: 1;
+  z-index: 1000;
+  padding: 8px;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  transform: translateX(10px);
+  pointer-events: none;
+}
+
+:host-context(.sidebar.collapsed) .nav-item-with-submenu:hover .submenu {
+  display: block;
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
+:host-context(.sidebar.collapsed) .submenu::before {
+  content: "";
+  position: absolute;
+  left: -6px;
+  top: 15px;
+  width: 12px;
+  height: 12px;
+  background-color: white;
+  transform: rotate(45deg);
+  box-shadow: -3px 3px 5px rgba(0, 0, 0, 0.05);
+  z-index: -1;
+}
+
+:host-context(.sidebar.collapsed) .submenu-item {
+  margin: 5px 0;
+}
+
+:host-context(.sidebar.collapsed) .submenu-link {
+  padding: 10px 15px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+}
+
+:host-context(.sidebar.collapsed) .submenu-link i {
+  margin-right: 10px;
+}
+
+:host-context(.sidebar.collapsed) .submenu-link:hover {
+  background-color: rgba(45, 96, 255, 0.08);
+}
+
+:host-context(.sidebar.collapsed) .submenu-icon {
+  display: none;
+}
+
+:host-context(.sidebar.collapsed) .section-divider {
+  display: none;
+}
+
+:host-context(.sidebar.collapsed) .badge {
+  display: none;
+}
+
+/* Fix for collapsed state */
+:host-context(.sidebar.collapsed) .nav-link {
+  justify-content: center;
+  padding: 12px;
+}
+
+:host-context(.sidebar.collapsed) .nav-link span {
+  display: none;
+}
+
+:host-context(.sidebar.collapsed) .nav-link i {
+  margin-right: 0;
+  margin-left: 0;
+}
+
+/* Animation for submenu items in collapsed state */
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+:host-context(.sidebar.collapsed) .nav-item-with-submenu:hover .submenu-item {
+  animation: fadeInRight 0.3s ease forwards;
+}
+
+:host-context(.sidebar.collapsed) .nav-item-with-submenu:hover .submenu-item:nth-child(1) {
+  animation-delay: 0.05s;
+}
+:host-context(.sidebar.collapsed) .nav-item-with-submenu:hover .submenu-item:nth-child(2) {
+  animation-delay: 0.1s;
+}
+:host-context(.sidebar.collapsed) .nav-item-with-submenu:hover .submenu-item:nth-child(3) {
+  animation-delay: 0.15s;
+}
+:host-context(.sidebar.collapsed) .nav-item-with-submenu:hover .submenu-item:nth-child(4) {
+  animation-delay: 0.2s;
+}
+:host-context(.sidebar.collapsed) .nav-item-with-submenu:hover .submenu-item:nth-child(5) {
+  animation-delay: 0.25s;
+}
+
+/* Add submenu title in collapsed state */
+:host-context(.sidebar.collapsed) .submenu::after {
+  content: attr(data-title);
+  display: block;
+  padding: 5px 15px;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #2d60ff;
+  font-size: 0.9rem;
+  border-bottom: 1px solid rgba(45, 96, 255, 0.1);
+}
+
+/* Ensure proper z-index and positioning */
+:host-context(.sidebar.collapsed) {
+  z-index: 100;
+}
+
+:host-context(.sidebar.collapsed) .nav-item {
+  position: relative;
+}
+
+/* Animation for submenu items */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.submenu.expanded .submenu-item {
+  animation: slideIn 0.3s ease forwards;
+}
+
+.submenu.expanded .submenu-item:nth-child(1) {
+  animation-delay: 0.05s;
+}
+.submenu.expanded .submenu-item:nth-child(2) {
+  animation-delay: 0.1s;
+}
+.submenu.expanded .submenu-item:nth-child(3) {
+  animation-delay: 0.15s;
+}
+.submenu.expanded .submenu-item:nth-child(4) {
+  animation-delay: 0.2s;
+}
+.submenu.expanded .submenu-item:nth-child(5) {
+  animation-delay: 0.25s;
+}
+
+/* Ensure consistent alignment in all menu items */
+.d-flex.align-items-center {
+  width: 100%;
+  justify-content: flex-start;
+}

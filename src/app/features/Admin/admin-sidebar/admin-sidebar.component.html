@@ -1,0 +1,140 @@
+<app-sidebar [userName]="user?.name" [userRole]="'Admin'">
+  <ul class="nav-menu">
+    <li class="nav-item">
+      <a routerLink="/admin/dashboard" routerLinkActive="active" class="nav-link" data-title="Dashboard">
+        <i class="bi bi-grid-1x2-fill"></i>
+        <span>Dashboard</span>
+      </a>
+    </li>
+
+    <div class="section-divider">Management</div>
+
+    <!-- Settings with submenu -->
+    <li class="nav-item">
+      <div class="nav-item-with-submenu">
+        <a (click)="toggleSubmenu('settings')" class="nav-link" [class.active]="isSubmenuActive('settings')" data-title="Settings">
+          <i class="bi bi-gear-fill"></i>
+          <span>Settings</span>
+          <i class="bi bi-chevron-down submenu-icon" [class.rotated]="expandedSubmenu === 'settings'"></i>
+        </a>
+
+        <ul class="submenu" [class.expanded]="expandedSubmenu === 'settings'" data-title="Settings">
+          <li class="submenu-item">
+            <a routerLink="/admin/settings/weight" routerLinkActive="active" class="submenu-link">
+              <i class="bi bi-speedometer2"></i>
+              <span>Weight Settings</span>
+            </a>
+          </li>
+          <li class="submenu-item">
+            <a routerLink="/admin/settings/refusal-reasons" routerLinkActive="active" class="submenu-link">
+              <i class="bi bi-x-circle"></i>
+              <span>Rejection Reasons</span>
+            </a>
+          </li>
+          <li class="submenu-item">
+            <a routerLink="/admin/settings/shipping-types" routerLinkActive="active" class="submenu-link">
+              <i class="bi bi-truck"></i>
+              <span>Shipping Types</span>
+            </a>
+          </li>
+          <li class="submenu-item">
+            <a routerLink="/admin/settings/permissions" routerLinkActive="active" class="submenu-link">
+              <i class="bi bi-shield-lock"></i>
+              <span>Permissions</span>
+            </a>
+          </li>
+          <li class="submenu-item">
+            <a routerLink="/admin/settings/branches" routerLinkActive="active" class="submenu-link">
+              <i class="bi bi-building"></i>
+              <span>Branches</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </li>
+
+    <!-- Users with submenu -->
+    <li class="nav-item">
+      <div class="nav-item-with-submenu">
+        <a (click)="toggleSubmenu('users')" class="nav-link" [class.active]="isSubmenuActive('users')" data-title="Users">
+          <i class="bi bi-people-fill"></i>
+          <span>Users</span>
+          <i class="bi bi-chevron-down submenu-icon" [class.rotated]="expandedSubmenu === 'users'"></i>
+        </a>
+
+        <ul class="submenu" [class.expanded]="expandedSubmenu === 'users'" data-title="Users">
+          <li class="submenu-item">
+            <a routerLink="/admin/users/employees" routerLinkActive="active" class="submenu-link">
+              <i class="bi bi-person-badge"></i>
+              <span>Employees</span>
+            </a>
+          </li>
+          <li class="submenu-item">
+            <a routerLink="/admin/users/merchants" routerLinkActive="active" class="submenu-link">
+              <i class="bi bi-shop"></i>
+              <span>Merchants</span>
+            </a>
+          </li>
+          <li class="submenu-item">
+            <a routerLink="/admin/users/sales-representatives" routerLinkActive="active" class="submenu-link">
+              <i class="bi bi-briefcase"></i>
+              <span>Sales Representatives</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </li>
+
+    <!-- Places with submenu -->
+    <li class="nav-item">
+      <div class="nav-item-with-submenu">
+        <a (click)="toggleSubmenu('places')" class="nav-link" [class.active]="isSubmenuActive('places')" data-title="Places">
+          <i class="bi bi-geo-alt-fill"></i>
+          <span>Places</span>
+          <i class="bi bi-chevron-down submenu-icon" [class.rotated]="expandedSubmenu === 'places'"></i>
+        </a>
+
+        <ul class="submenu" [class.expanded]="expandedSubmenu === 'places'" data-title="Places">
+          <li class="submenu-item">
+            <a routerLink="/admin/places/governorates" routerLinkActive="active" class="submenu-link">
+              <i class="bi bi-map"></i>
+              <span>Governorates</span>
+            </a>
+          </li>
+          <li class="submenu-item">
+            <a routerLink="/admin/places/cities" routerLinkActive="active" class="submenu-link">
+              <i class="bi bi-building"></i>
+              <span>Cities</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </li>
+
+    <div class="section-divider">Operations</div>
+
+    <li class="nav-item">
+      <a routerLink="/admin/orders" routerLinkActive="active" class="nav-link" data-title="Orders">
+        <i class="bi bi-box-seam-fill"></i>
+        <span>Orders</span>
+        <span class="badge badge-warning">12</span>
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a routerLink="/admin/reports" routerLinkActive="active" class="nav-link" data-title="Order Reports">
+        <i class="bi bi-bar-chart-fill"></i>
+        <span>Order Reports</span>
+      </a>
+    </li>
+
+    <div class="section-divider">Account</div>
+
+    <li class="nav-item">
+      <a routerLink="/admin/profile" routerLinkActive="active" class="nav-link" data-title="Profile">
+        <i class="bi bi-person-fill"></i>
+        <span>Profile</span>
+      </a>
+    </li>
+  </ul>
+</app-sidebar>

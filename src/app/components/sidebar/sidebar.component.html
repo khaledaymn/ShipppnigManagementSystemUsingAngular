@@ -1,80 +1,38 @@
 <div class="sidebar" [class.collapsed]="isCollapsed">
   <div class="sidebar-header">
     <div class="logo-container">
-      <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect width="36" height="36" rx="8" fill="#2D60FF" fill-opacity="0.1"/>
         <path d="M24 12H12C10.8954 12 10 12.8954 10 14V22C10 23.1046 10.8954 24 12 24H24C25.1046 24 26 23.1046 26 22V14C26 12.8954 25.1046 12 24 12Z" stroke="#2D60FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         <path d="M10 16H26" stroke="#2D60FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         <path d="M14 20H18" stroke="#2D60FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-      <span class="logo-text">Shipping</span>
+      </svg> -->
+      <img src="Logo.png" alt="Logo" class="logo" />
+      <span class="logo-text">hipping</span>
     </div>
-    <button class="toggle-btn" (click)="toggleSidebar()">
-      <i class="bi" [ngClass]="isCollapsed ? 'bi-chevron-right' : 'bi-chevron-left'"></i>
-    </button>
   </div>
 
+  <!-- Toggle button moved outside the header for better positioning -->
+  <button class="toggle-btn" (click)="toggleSidebar()" title="Toggle sidebar">
+    <i class="bi bi-chevron-left"></i>
+  </button>
+
   <div class="sidebar-content">
-    <ul class="nav-menu">
-      <li class="nav-item">
-        <a routerLink="/dashboard" routerLinkActive="active" class="nav-link">
-          <i class="bi bi-grid-1x2-fill"></i>
-          <span>Dashboard</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a routerLink="/shipments" routerLinkActive="active" class="nav-link">
-          <i class="bi bi-box-seam-fill"></i>
-          <span>Shipments</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a routerLink="/tracking" routerLinkActive="active" class="nav-link">
-          <i class="bi bi-geo-alt-fill"></i>
-          <span>Tracking</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a routerLink="/inventory" routerLinkActive="active" class="nav-link">
-          <i class="bi bi-archive-fill"></i>
-          <span>Inventory</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a routerLink="/carriers" routerLinkActive="active" class="nav-link">
-          <i class="bi bi-truck"></i>
-          <span>Carriers</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a routerLink="/customers" routerLinkActive="active" class="nav-link">
-          <i class="bi bi-people-fill"></i>
-          <span>Customers</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a routerLink="/reports" routerLinkActive="active" class="nav-link">
-          <i class="bi bi-bar-chart-fill"></i>
-          <span>Reports</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a routerLink="/settings" routerLinkActive="active" class="nav-link">
-          <i class="bi bi-gear-fill"></i>
-          <span>Settings</span>
-        </a>
-      </li>
-    </ul>
+    <!-- Content projection - role-specific content will be inserted here -->
+    <ng-content></ng-content>
   </div>
 
   <div class="sidebar-footer">
     <div class="user-info">
       <div class="user-avatar">
-        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-oK8OyiX7Y6b1dG2jOw9Tybea6y4ON6.png" alt="User Profile">
+        <img
+          src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-oK8OyiX7Y6b1dG2jOw9Tybea6y4ON6.png"
+          alt="User Profile"
+        />
       </div>
       <div class="user-details">
-        <p class="user-name">Alex Morgan</p>
-        <p class="user-role">Admin</p>
+        <p class="user-name">{{ userName }}</p>
+        <p class="user-role">{{ userRole }}</p>
       </div>
     </div>
   </div>

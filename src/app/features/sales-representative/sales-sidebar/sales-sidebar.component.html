@@ -1,0 +1,48 @@
+<app-sidebar [userName]="user?.name" [userRole]="'Sales Representative'">
+  <ul class="nav-menu">
+    <li class="nav-item">
+      <a
+        routerLink="/sales/dashboard"
+        routerLinkActive="active"
+        class="nav-link"
+        data-title="Dashboard"
+      >
+        <i class="bi bi-grid-1x2-fill"></i>
+        <span>Dashboard</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a
+        routerLink="/sales/orders"
+        routerLinkActive="active"
+        class="nav-link"
+        data-title="Orders"
+      >
+        <i class="bi bi-box-seam-fill"></i>
+        <span>Orders</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a
+        routerLink="/sales/reports"
+        routerLinkActive="active"
+        class="nav-link"
+        data-title="Order Reports"
+      >
+        <i class="bi bi-bar-chart-fill"></i>
+        <span>Order Reports</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a
+        routerLink="/sales/profile"
+        routerLinkActive="active"
+        class="nav-link"
+        data-title="Profile"
+      >
+        <i class="bi bi-person-fill"></i>
+        <span>Profile</span>
+      </a>
+    </li>
+  </ul>
+</app-sidebar>

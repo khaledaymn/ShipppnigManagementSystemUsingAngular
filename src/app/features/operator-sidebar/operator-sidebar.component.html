@@ -1,0 +1,28 @@
+<app-sidebar [userName]="user?.name" [userRole]="'Operator'">
+  <ul class="nav-menu">
+    <li class="nav-item">
+      <a routerLink="/operator/dashboard" routerLinkActive="active" class="nav-link" data-title="Dashboard">
+        <i class="bi bi-grid-1x2-fill"></i>
+        <span>Dashboard</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a routerLink="/operator/shipments" routerLinkActive="active" class="nav-link" data-title="Shipments">
+        <i class="bi bi-box-seam-fill"></i>
+        <span>Shipments</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a routerLink="/operator/tracking" routerLinkActive="active" class="nav-link" data-title="Tracking">
+        <i class="bi bi-geo-alt-fill"></i>
+        <span>Tracking</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a routerLink="/operator/customers" routerLinkActive="active" class="nav-link" data-title="Customers">
+        <i class="bi bi-people-fill"></i>
+        <span>Customers</span>
+      </a>
+    </li>
+  </ul>
+</app-sidebar>

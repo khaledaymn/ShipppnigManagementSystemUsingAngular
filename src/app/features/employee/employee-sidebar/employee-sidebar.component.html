@@ -1,0 +1,59 @@
+<app-sidebar [userName]="username" [userRole]="'Employee'">
+  <ul class="nav-menu">
+    <li class="nav-item">
+      <a
+        routerLink="/employee/dashboard"
+        routerLinkActive="active"
+        class="nav-link"
+        data-title="Dashboard"
+      >
+        <i class="bi bi-grid-1x2-fill"></i>
+        <span>Dashboard</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a
+        routerLink="/employee/shipments"
+        routerLinkActive="active"
+        class="nav-link"
+        data-title="Shipments"
+      >
+        <i class="bi bi-box-seam-fill"></i>
+        <span>Shipments</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a
+        routerLink="/employee/tracking"
+        routerLinkActive="active"
+        class="nav-link"
+        data-title="Tracking"
+      >
+        <i class="bi bi-geo-alt-fill"></i>
+        <span>Tracking</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a
+        routerLink="/employee/inventory"
+        routerLinkActive="active"
+        class="nav-link"
+        data-title="Inventory"
+      >
+        <i class="bi bi-archive-fill"></i>
+        <span>Inventory</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a
+        routerLink="/employee/reports"
+        routerLinkActive="active"
+        class="nav-link"
+        data-title="Reports"
+      >
+        <i class="bi bi-bar-chart-fill"></i>
+        <span>Reports</span>
+      </a>
+    </li>
+  </ul>
+</app-sidebar>
