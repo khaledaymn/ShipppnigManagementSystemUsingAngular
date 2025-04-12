@@ -1,4 +1,4 @@
-<div class="app-container">
+<!-- <div class="app-container">
   <ng-container *ngIf="isAuthenticated">
     <ng-container [ngSwitch]="userRole">
       <app-admin-sidebar *ngSwitchCase="'admin'"></app-admin-sidebar>
@@ -20,7 +20,7 @@
       <app-header></app-header>
       <main class="main-content">
         <router-outlet>
-          <!-- <select
+          <select
             (change)="onRoleChange($event)"
             name="role"
             class="form-select"
@@ -29,14 +29,46 @@
             <option value="employee">Employee</option>
             <option value="sales_representative">Sales Representative</option>
             <option value="merchant">Merchant</option>
-          </select> -->
+          </select>
         </router-outlet>
       </main>
     </div>
   </ng-container>
 
-  <!-- Show login page if not authenticated -->
+ Show login page if not authenticated
   <ng-container *ngIf="!isAuthenticated">
     <router-outlet> </router-outlet>
+  </ng-container>
+</div> -->
+
+<div [class.app-container]="isAuthenticated">
+  <!-- Show appropriate sidebar based on user role if authenticated -->
+  
+  <ng-container *ngIf="isAuthenticated">
+    <app-admin-sidebar *ngIf="isAdmin"></app-admin-sidebar>
+    <app-employee-sidebar *ngIf="isEmployee"></app-employee-sidebar>
+    <app-sales-sidebar *ngIf="isSalesRep"></app-sales-sidebar>
+    <app-merchant-sidebar *ngIf="isMerchant"></app-merchant-sidebar>
+    <app-operator-sidebar
+      *ngIf="!isAdmin && !isEmployee && !isSalesRep && !isMerchant"
+    ></app-operator-sidebar>
+
+    <div
+      class="content-wrapper"
+      [ngClass]="{
+        'with-sidebar': isAuthenticated,
+        'sidebar-collapsed': isSidebarCollapsed
+      }"
+    >
+      <app-header></app-header>
+      <main class="main-content">
+        <router-outlet></router-outlet>
+      </main>
+    </div>
+  </ng-container>
+
+  <!-- Show only router outlet if not authenticated (for login pages) -->
+  <ng-container *ngIf="!isAuthenticated">
+    <router-outlet></router-outlet>
   </ng-container>
 </div>

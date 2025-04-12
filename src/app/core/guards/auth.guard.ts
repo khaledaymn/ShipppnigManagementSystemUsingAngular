@@ -10,6 +10,6 @@ export const authGuard = () => {
     return true
   }
 
-  // Redirect to the login page
-  return router.parseUrl("/login")
+  // Redirect to the login page with the intended destination
+  return router.parseUrl("/auth/login")
 }

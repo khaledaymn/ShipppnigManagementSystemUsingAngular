@@ -1,12 +1,6 @@
 <div class="sidebar" [class.collapsed]="isCollapsed">
   <div class="sidebar-header">
     <div class="logo-container">
-      <!-- <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="36" height="36" rx="8" fill="#2D60FF" fill-opacity="0.1"/>
-        <path d="M24 12H12C10.8954 12 10 12.8954 10 14V22C10 23.1046 10.8954 24 12 24H24C25.1046 24 26 23.1046 26 22V14C26 12.8954 25.1046 12 24 12Z" stroke="#2D60FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M10 16H26" stroke="#2D60FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M14 20H18" stroke="#2D60FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg> -->
       <img src="Logo.png" alt="Logo" class="logo" />
       <span class="logo-text">hipping</span>
     </div>
@@ -25,14 +19,27 @@
   <div class="sidebar-footer">
     <div class="user-info">
       <div class="user-avatar">
-        <img
-          src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-oK8OyiX7Y6b1dG2jOw9Tybea6y4ON6.png"
-          alt="User Profile"
-        />
+        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-oK8OyiX7Y6b1dG2jOw9Tybea6y4ON6.png" alt="User Profile">
       </div>
       <div class="user-details">
         <p class="user-name">{{ userName }}</p>
         <p class="user-role">{{ userRole }}</p>
+      </div>
+    </div>
+    
+    <button class="logout-btn" (click)="confirmLogout()">
+      <i class="bi bi-box-arrow-right"></i>
+      <span class="logout-text">Logout</span>
+    </button>
+    
+    <!-- Logout confirmation dialog -->
+    <div class="logout-dialog" *ngIf="showLogoutConfirm">
+      <div class="logout-dialog-content">
+        <p>Are you sure you want to logout?</p>
+        <div class="logout-dialog-actions">
+          <button class="btn-cancel" (click)="cancelLogout()">Cancel</button>
+          <button class="btn-confirm" (click)="logout()">Logout</button>
+        </div>
       </div>
     </div>
   </div>
