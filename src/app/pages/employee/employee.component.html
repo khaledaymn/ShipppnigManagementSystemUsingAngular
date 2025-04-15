@@ -1,0 +1,51 @@
+<div class="mt-5 container p-5">
+    <h1 class="text-center text-muted mb-4">Employees</h1>
+    <div class="d-flex justify-content-between">
+      <button class="btn btn-outline-primary" routerLink="/Employee/0/edit">
+        Add New Employee
+      </button>
+      <input type="text" [(ngModel)]="Search" (input)="SearchHandle(Search)" class="form-control w-25" placeholder="Search ...." 
+         />
+    </div>
+    <table class="table mt-5">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Email</th>
+          <th scope="col">Phone Number</th>
+          <th scope="col">Branch</th>
+          <th scope="col">Permission</th>
+          <th scope="col">Status</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (emp of employees; track $index) {
+          <tr>
+            <th scope="row">{{emp.name}}</th>
+            <td>{{emp.email}}</td>
+            <td>{{emp.phoneNumber}}</td>
+            <td>{{emp.brachName}}</td>
+            <td>{{emp.groupName}}</td>
+            <td>
+              <div class="form-check ms-3">
+                <input class="form-check-input" type="checkbox" [checked]="!emp.isDeleted"
+                (change)="isDeletedHandler($event,emp)" >
+              </div>
+            </td>
+            <td>
+              <i class="text-info fs-4 mx-2 bi bi-pencil-square" routerLink="/Employee/{{emp.id}}/edit"></i> 
+              <i class="text-danger fs-4 mx-2 bi bi-trash-fill" (click)="DeleteHandler(emp)" ></i>
+            </td>
+          </tr>
+        }
+
+      </tbody>
+    </table>
+    <button (click)="Pagination(PageIndex-1)"  [disabled]="PageIndex<=1" class="btn btn-warning">
+      Back
+    </button>
+    <button (click)="Pagination(PageIndex+1)"[disabled]="" class="btn btn-warning m-3">
+      Next
+    </button>
+  </div>

@@ -1,4 +1,8 @@
 import type { Routes } from "@angular/router"
+import { BranchComponent } from "./pages/branch/branch.component"
+import { BranchFormComponent } from "./pages/branch-form/branch-form.component"
+import { EmployeeComponent } from "./pages/employee/employee.component"
+import { EmployeeFormComponent } from "./pages/employee-form/employee-form.component"
 
 export const routes: Routes = [
   {
@@ -31,6 +35,12 @@ export const routes: Routes = [
   //   loadComponent: () => import("./features/dashboard/dashboard.component").then((m) => m.DashboardComponent),
   //   canActivate: [authGuard],
   // },
+    {path:'Branch',component:BranchComponent},
+    {path:'Branch/:id/edit',component:BranchFormComponent},
+    {path:'Employee',component:EmployeeComponent},
+    {path:'Employee/:id/edit',component:EmployeeFormComponent},
+
+
   {
     path: "unauthorized",
     loadComponent: () => import("./pages/unauthorized/unauthorized.component").then((m) => m.UnauthorizedComponent),

@@ -1,0 +1,50 @@
+<div class="mt-5 container p-5">
+  <h1 class="text-center text-muted mb-4">Our Branches</h1>
+  <div class="d-flex justify-content-between">
+    <button class="btn btn-outline-primary" routerLink="/Branch/0/edit">
+      Add New Branch
+    </button>
+    <!-- <button class="btn btn-warning">
+        filter By
+      </button> -->
+    <input type="text" class="form-control w-25" placeholder="Search ...." [(ngModel)]="SearchByName"
+      (input)="SearchHandler(SearchByName)" />
+  </div>
+  <table class="table mt-5">
+    <thead>
+      <tr>
+        <th scope="col"></th>
+        <th scope="col">Brach Name</th>
+        <th scope="col">Creation Date</th>
+        <th scope="col">Status</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      @for (item of branches; track $index) {
+      <tr>
+        <th scope="row">{{item.brancheID}}</th>
+        <td>{{item.name}}</td>
+        <td>{{item.creationDate }}</td>
+        <td>
+          <div class="form-check ms-3">
+            <input class="form-check-input" type="checkbox" [checked]="!item.isDeleted"
+              (change)="isDeletedHandler($event,item)">
+          </div>
+        </td>
+        <td>
+          <i class="text-info fs-4 mx-2 bi bi-pencil-square" routerLink="/Branch/{{item.brancheID}}/edit"></i>
+          <i class="text-danger fs-4 mx-2 bi bi-trash-fill" (click)="DeleteHandeler(item)"></i>
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+  <button (click)="Pagination(PageIndex-1)" [disabled]="PageIndex<=1" class="btn btn-warning">
+    Back
+  </button>
+  <button (click)="Pagination(PageIndex+1)" [disabled]="" class="btn btn-warning m-3">
+    Next
+  </button>
+</div>
