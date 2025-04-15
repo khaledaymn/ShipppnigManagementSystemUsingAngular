@@ -13,6 +13,7 @@
                 Employee Name is required
             </div>
             }
+            
             @if(GetName.hasError('minlength')){
 
             <div id="emailHelp" class="form-text text-danger">
@@ -60,23 +61,23 @@
 
         </div>
         @if(EmpId==0){
-            <div class="mb-3">
-                <label for="Password" class="form-label fw-bold">Password</label>
-                <input type="password" class="form-control" id="Password" aria-describedby="emailHelp"
-                    placeholder="Enter Employee Password" formControlName="password" />
-                @if(GetPassword.touched){
-                @if(GetPassword.hasError('required')){
-                <div id="emailHelp" class="form-text text-danger">
-                    Employee Password is required
-                </div>
-                }
-                @if(GetPassword.hasError('pattern')){
-                <div id="emailHelp" class="form-text text-danger">
-                    Password must contain letters, numbers, and special characters
-                </div>
-                }
-                }
+        <div class="mb-3">
+            <label for="Password" class="form-label fw-bold">Password</label>
+            <input type="password" class="form-control" id="Password" aria-describedby="emailHelp"
+                placeholder="Enter Employee Password" formControlName="password" />
+            @if(GetPassword.touched){
+            @if(GetPassword.hasError('required')){
+            <div id="emailHelp" class="form-text text-danger">
+                Employee Password is required
             </div>
+            }
+            @if(GetPassword.hasError('pattern')){
+            <div id="emailHelp" class="form-text text-danger">
+                Password must contain letters, numbers, and special characters
+            </div>
+            }
+            }
+        </div>
         }
         <div class="mb-3">
             <label for="PhoneNumber" class="form-label fw-bold">Phone Number</label>
@@ -91,7 +92,7 @@
             }
         </div>
         @if(EmpId!=0){
-            
+
         }
         <div class="mb-3">
             <label for="ChooseBranch" class="form-label fw-bold">Choose Branch</label>
@@ -115,7 +116,7 @@
         </div>
         <button type="submit" class="btn btn-dark d-block w-25">
             {{EmpId ==0? "Add New Emplooye":"Edit Employee"}}
-        </button> 
+        </button>
     </form>
     <button type="button" (click)="Back()" class="btn btn-warning d-block w-25 mt-2">
         Back To List
