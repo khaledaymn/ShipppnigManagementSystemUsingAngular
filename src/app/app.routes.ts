@@ -8,6 +8,8 @@ import { CityComponent } from "./pages/city/city.component"
 import { CityFormComponent } from "./pages/city-form/city-form.component"
 import { StandardComponent } from "./pages/standard/standard.component"
 import { StandardFormComponent } from "./pages/standard-form/standard-form.component"
+import { MeduleComponent } from "./pages/medule/medule.component"
+import { GroupComponent } from "./pages/group/group.component"
 
 export const routes: Routes = [
   {
@@ -48,6 +50,10 @@ export const routes: Routes = [
     {path:'City/:id/edit',component:CityFormComponent},
     {path:'weightSetting',component:StandardComponent},
     {path:'weightSetting/:id/edit',component:StandardFormComponent},
+
+    {path:'Group',component:GroupComponent},
+    {path:'permissions',component:MeduleComponent},
+
     {
       path: "governorates",
       loadChildren: () => import("./pages/governorate/governorate.module").then((m) => m.GovernorateModule),
@@ -97,6 +103,7 @@ export const routes: Routes = [
           (m) => m.ShippingRepresentativeModule,
         ),
     },
+
   {
     path: "unauthorized",
     loadComponent: () => import("./pages/unauthorized/unauthorized.component").then((m) => m.UnauthorizedComponent),

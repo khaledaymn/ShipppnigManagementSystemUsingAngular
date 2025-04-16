@@ -1,0 +1,52 @@
+<div class="mt-5 container p-5" *ngIf="form">
+    <h1 class="text-center text-muted mb-4">Create New Group</h1>
+  
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <div class="mb-3">
+        <label class="form-label">Group Name</label>
+        <input
+          formControlName="name"
+          class="form-control"
+          placeholder="Enter group name"
+        />
+      </div>
+  
+      <table class="table mt-4">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Module</th>
+            <th *ngFor="let op of ops">{{ op.label }}</th>
+          </tr>
+        </thead>
+        <tbody formArrayName="permissions">
+          <tr
+            *ngFor="
+              let permCtrl of permissionsControls;
+              let i = index
+            "
+            [formGroupName]="i"
+          >
+            <th scope="row">{{ medules.data[i].id }}</th>
+            <td>{{ medules.data[i].name }}</td>
+  
+            <td *ngFor="let op of ops">
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  [value]="op.value"
+                  (change)="onCheckboxChange(i, op.value, $event)"
+                />
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+  
+      <button class="btn btn-primary mt-3" type="submit">
+        Save Group
+      </button>
+    </form>
+  </div>
+  

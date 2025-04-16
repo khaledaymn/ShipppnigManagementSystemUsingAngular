@@ -1,0 +1,26 @@
+<div class="mt-5 container p-5">
+    <h1 class="text-center text-muted mb-4">Groups</h1>
+    <div class="d-flex justify-content-between">
+        <button class="btn btn-outline-primary" routerLink="/permissions">
+            Add New Group
+        </button>
+    </div>
+    <table class="table mt-5">
+        <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col">Name</th>
+                <th scope="col">Creation Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (item of groups?.data; track $index) {
+            <tr>
+                <th scope="row">{{item?.id}}</th>
+                <td>{{item?.name}}</td>
+                <td>{{item?.creationDate }}</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
