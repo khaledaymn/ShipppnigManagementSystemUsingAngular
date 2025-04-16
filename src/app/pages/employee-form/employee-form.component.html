@@ -1,124 +1,139 @@
 <div class="container p-4 mt-5">
-    <h1 class="text-center text-muted mb-3">
-        {{EmpId ==0? "Add New Emplooye":"Edit Employee"}}
-    </h1>
-    <form [formGroup]="EmpForm" (submit)="Submit()">
-        <div class="mb-3">
-            <label for="EmployeeName" class="form-label fw-bold"> Full Name</label>
-            <input type="text" class="form-control" id="EmployeeName" aria-describedby="emailHelp"
-                placeholder="Enter Employee Full Name" formControlName="name" />
-            @if(GetName.touched){
-            @if(GetName.hasError('required')){
-            <div id="emailHelp" class="form-text text-danger">
-                Employee Name is required
-            </div>
-            }
-            
-            @if(GetName.hasError('minlength')){
+  <h1 class="text-center text-muted mb-3">
+    {{ EmpId == 0 ? "Add New Emplooye" : "Edit Employee" }}
+  </h1>
+  <form [formGroup]="EmpForm" (submit)="Submit()">
+    <div class="mb-3">
+      <label for="EmployeeName" class="form-label fw-bold"> Full Name</label>
+      <input
+        type="text"
+        class="form-control"
+        id="EmployeeName"
+        aria-describedby="emailHelp"
+        placeholder="Enter Employee Full Name"
+        formControlName="name"
+      />
+      @if(GetName.touched){ @if(GetName.hasError('required')){
+      <div id="emailHelp" class="form-text text-danger">
+        Employee Name is required
+      </div>
+      } @if(GetName.hasError('minlength')){
 
-            <div id="emailHelp" class="form-text text-danger">
-                Employee Name length must be greater than 3
-            </div>
-            }
+      <div id="emailHelp" class="form-text text-danger">
+        Employee Name length must be greater than 3
+      </div>
+      } }
+    </div>
+    <div class="mb-3">
+      <label for="UserName" class="form-label fw-bold">User Name</label>
+      <input
+        type="text"
+        class="form-control"
+        id="UserName"
+        aria-describedby="emailHelp"
+        placeholder="Enter User Name"
+        formControlName="userName"
+      />
+      @if(GetUserName.touched){ @if(GetUserName.hasError('required')){
+      <div id="emailHelp" class="form-text text-danger">
+        Employee User Name is required
+      </div>
+      } @if(GetUserName.hasError('pattern')){
+      <div id="emailHelp" class="form-text text-danger">
+        User Name Must Contain Letters And Number
+      </div>
+      } }
+    </div>
+    <div class="mb-3">
+      <label for="EmployeeEmail" class="form-label fw-bold">Email</label>
+      <input
+        type="text"
+        class="form-control"
+        id="EmployeeEmail"
+        aria-describedby="emailHelp"
+        placeholder="Enter Employee Email"
+        formControlName="email"
+      />
+      @if(GetEmail.touched){ @if(GetEmail.hasError('required')){
+      <div id="emailHelp" class="form-text text-danger">
+        Employee Email is required
+      </div>
+      } @if(GetEmail.hasError('pattern')){
+      <div id="emailHelp" class="form-text text-danger">Enter Valid Email</div>
 
-            }
-        </div>
-        <div class="mb-3">
-            <label for="UserName" class="form-label fw-bold">User Name</label>
-            <input type="text" class="form-control" id="UserName" aria-describedby="emailHelp"
-                placeholder="Enter User Name" formControlName="userName" />
-            @if(GetUserName.touched){
-            @if(GetUserName.hasError('required')){
-            <div id="emailHelp" class="form-text text-danger">
-                Employee User Name is required
-            </div>
-            }
-            @if(GetUserName.hasError('pattern')){
-            <div id="emailHelp" class="form-text text-danger">
-                User Name Must Contain Letters And Number
-            </div>
-            }
-            }
-
-        </div>
-        <div class="mb-3">
-            <label for="EmployeeEmail" class="form-label fw-bold">Email</label>
-            <input type="text" class="form-control" id="EmployeeEmail" aria-describedby="emailHelp"
-                placeholder="Enter Employee Email" formControlName="email" />
-            @if(GetEmail.touched){
-            @if(GetEmail.hasError('required')){
-            <div id="emailHelp" class="form-text text-danger">
-                Employee Email is required
-            </div>
-            }
-            @if(GetEmail.hasError('pattern')){
-            <div id="emailHelp" class="form-text text-danger">
-                Enter Valid Email
-            </div>
-
-            }
-            }
-
-        </div>
-        @if(EmpId==0){
-        <div class="mb-3">
-            <label for="Password" class="form-label fw-bold">Password</label>
-            <input type="password" class="form-control" id="Password" aria-describedby="emailHelp"
-                placeholder="Enter Employee Password" formControlName="password" />
-            @if(GetPassword.touched){
-            @if(GetPassword.hasError('required')){
-            <div id="emailHelp" class="form-text text-danger">
-                Employee Password is required
-            </div>
-            }
-            @if(GetPassword.hasError('pattern')){
-            <div id="emailHelp" class="form-text text-danger">
-                Password must contain letters, numbers, and special characters
-            </div>
-            }
-            }
-        </div>
+      } }
+    </div>
+    @if(EmpId==0){
+    <div class="mb-3">
+      <label for="Password" class="form-label fw-bold">Password</label>
+      <input
+        type="password"
+        class="form-control"
+        id="Password"
+        aria-describedby="emailHelp"
+        placeholder="Enter Employee Password"
+        formControlName="password"
+      />
+      @if(GetPassword.touched){ @if(GetPassword.hasError('required')){
+      <div id="emailHelp" class="form-text text-danger">
+        Employee Password is required
+      </div>
+      } @if(GetPassword.hasError('pattern')){
+      <div id="emailHelp" class="form-text text-danger">
+        Password must contain letters, numbers, and special characters
+      </div>
+      } }
+    </div>
+    }
+    <div class="mb-3">
+      <label for="PhoneNumber" class="form-label fw-bold">Phone Number</label>
+      <input
+        type="text"
+        class="form-control"
+        id="PhoneNumber"
+        aria-describedby="emailHelp"
+        placeholder="Enter Employee Phone Number"
+        formControlName="phoneNumber"
+      />
+      @if(GetPhoneNumber.touched){ @if(GetPhoneNumber.hasError('required')){
+      <div id="emailHelp" class="form-text text-danger">
+        Employee Phone Number is required
+      </div>
+      } }
+    </div>
+    @if(EmpId!=0){ }
+    <div class="mb-3">
+      <label for="ChooseBranch" class="form-label fw-bold">Choose Branch</label>
+      <select
+        id="ChooseBranch"
+        class="form-select"
+        formControlName="selectBranch"
+      >
+        <option selected disabled value="0">Choose Branch</option>
+        @for (item of branches; track $index) {
+        <option [value]="item.brancheID">{{ item.name }}</option>
         }
-        <div class="mb-3">
-            <label for="PhoneNumber" class="form-label fw-bold">Phone Number</label>
-            <input type="text" class="form-control" id="PhoneNumber" aria-describedby="emailHelp"
-                placeholder="Enter Employee Phone Number" formControlName="phoneNumber" />
-            @if(GetPhoneNumber.touched){
-            @if(GetPhoneNumber.hasError('required')){
-            <div id="emailHelp" class="form-text text-danger">
-                Employee Phone Number is required
-            </div>
-            }
-            }
-        </div>
-        @if(EmpId!=0){
-
+        <option></option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label for="Permission" class="form-label fw-bold">Permissions</label>
+      <select id="Permission" class="form-select" formControlName="selectGroup">
+        <option selected disabled value="0">Choose Permission</option>
+        @for (item of Groups?.data; track $index) {
+        <option [value]="item.id">{{ item.name }}</option>
         }
-        <div class="mb-3">
-            <label for="ChooseBranch" class="form-label fw-bold">Choose Branch</label>
-            <select id="ChooseBranch" class="form-select" formControlName="selectBranch">
-                <option selected disabled value="0">Choose Branch</option>
-                @for (item of branches; track $index) {
-                <option [value]="item.brancheID">{{item.name}}</option>
-                }
-                <option></option>
-
-            </select>
-        </div>
-        <div class="mb-3">
-            <label for="Permission" class="form-label fw-bold">Permissions</label>
-            <select id="Permission" class="form-select" formControlName="selectGroup">
-                <option selected disabled value="0">Choose Permission</option>
-                @for (item of Groups?.data; track $index) {
-                <option [value]="item.id">{{item.name}}</option>
-                }
-            </select>
-        </div>
-        <button type="submit" class="btn btn-dark d-block w-25">
-            {{EmpId ==0? "Add New Emplooye":"Edit Employee"}}
-        </button>
-    </form>
-    <button type="button" (click)="Back()" class="btn btn-warning d-block w-25 mt-2">
-        Back To List
+      </select>
+    </div>
+    <button type="submit" class="btn btn-dark d-block w-25">
+      {{ EmpId == 0 ? "Add New Emplooye" : "Edit Employee" }}
     </button>
+  </form>
+  <button
+    type="button"
+    (click)="Back()"
+    class="btn btn-warning d-block w-25 mt-2"
+  >
+    Back To List
+  </button>
 </div>
