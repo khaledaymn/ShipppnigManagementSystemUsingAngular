@@ -1,0 +1,49 @@
+<div class="container p-4 mt-5">
+    <h1 class="text-center text-muted mb-3">
+        Edit Settings
+    </h1>
+    <form [formGroup]="standardForm" (submit)="Submit()" >
+        <div class="mb-3">
+            <label for="kGprice" class="form-label">kilo Grams price</label>
+            <input type="number" class="form-control" id="kGprice" aria-describedby="emailHelp"
+                placeholder="Enter kG price" formControlName="kGprice" />
+            @if(GetkGprice.touched){
+                @if(GetkGprice.hasError('required')){
+                    <div id="emailHelp" class="form-text text-danger">
+                        Kilo Grams price is required
+                    </div>
+                }
+            }
+        </div>
+        <div class="mb-3">
+            <label for="villagePrice" class="form-label">village Price</label>
+            <input type="number"  class="form-control" id="villagePrice" aria-describedby="emailHelp"
+                placeholder="Enter village Price" formControlName="villagePrice" />
+            @if(GetvillagePrice.touched){
+                @if(GetvillagePrice.hasError('required')){
+                    <div id="emailHelp" class="form-text text-danger">
+                        village Price is required
+                    </div>
+                }
+            }
+        </div>
+        <div class="mb-3">
+            <label for="standardWeight" class="form-label">Standard Weight</label>
+            <input type="number"  class="form-control" id="standardWeight" aria-describedby="emailHelp"
+                placeholder="Enter Standard Weight" formControlName="standardWeight" />
+            @if(GetstandardWeight.touched){
+                @if(GetstandardWeight.hasError('required')){
+                    <div id="emailHelp" class="form-text text-danger">
+                        Standard Weight is required
+                    </div>
+                }
+            }
+        </div>
+        <button type="submit" class="btn btn-dark d-block w-25">
+            Edit Settings 
+        </button>
+    </form>
+    <button  (click)="Back()" type="submit"  class="btn btn-warning d-block w-25 mt-2">
+        Back To List
+    </button>
+</div>

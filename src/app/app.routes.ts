@@ -4,6 +4,10 @@ import { BranchFormComponent } from "./pages/branch-form/branch-form.component"
 import { EmployeeComponent } from "./pages/employee/employee.component"
 import { EmployeeFormComponent } from "./pages/employee-form/employee-form.component"
 import { authGuard } from "./core/guards/auth.guard"
+import { CityComponent } from "./pages/city/city.component"
+import { CityFormComponent } from "./pages/city-form/city-form.component"
+import { StandardComponent } from "./pages/standard/standard.component"
+import { StandardFormComponent } from "./pages/standard-form/standard-form.component"
 
 export const routes: Routes = [
   {
@@ -40,8 +44,10 @@ export const routes: Routes = [
     {path:'Branch/:id/edit',component:BranchFormComponent},
     {path:'Employee',component:EmployeeComponent},
     {path:'Employee/:id/edit',component:EmployeeFormComponent},
-
-
+    {path:'City',component:CityComponent},
+    {path:'City/:id/edit',component:CityFormComponent},
+    {path:'weightSetting',component:StandardComponent},
+    {path:'weightSetting/:id/edit',component:StandardFormComponent},
   {
     path: "unauthorized",
     loadComponent: () => import("./pages/unauthorized/unauthorized.component").then((m) => m.UnauthorizedComponent),

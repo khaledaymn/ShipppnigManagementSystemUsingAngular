@@ -1,0 +1,30 @@
+<div class="mt-5 container p-5">
+    <h1 class="text-center text-muted mb-4">Standard</h1>
+    <div class="d-flex justify-content-between">
+    </div>
+    <table class="table mt-5">
+        <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col">Kilo Gram Price</th>
+                <th scope="col">Standard Weight</th>
+                <th scope="col">village Price</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">{{standard?.id}}</th>
+                <td>{{standard?.kGprice}}</td>
+                <td>{{standard?.standardWeight}}</td>
+                <td>{{standard?.villagePrice}}</td>
+                <td>
+                    <i class="text-info fs-4 mx-2 bi bi-pencil-square" routerLink="/weightSetting/{{standard.id}}/edit"></i>
+                </td>
+            </tr>
+            
+
+
+        </tbody>
+    </table>
+</div>

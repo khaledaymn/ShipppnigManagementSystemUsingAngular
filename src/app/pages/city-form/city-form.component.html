@@ -1,0 +1,72 @@
+<div class="container p-4 mt-5">
+    <h1 class="text-center text-muted mb-3">
+        {{CityId==0?"Add New City":"Edit City"}}
+    </h1>
+    <form [formGroup]="CityForm" (submit)="Submit()" >
+        @if(CityId!=0){
+            <input type="hidden" [value]="CityId" formControlName="ID">
+        }
+        <div class="mb-3">
+            <label for="CityName" class="form-label">City Name</label>
+            <input type="text" class="form-control" id="CityName" aria-describedby="emailHelp"
+                placeholder="Enter City Name" formControlName="name" />
+            @if(GetName.touched){
+                @if(GetName.hasError('required')){
+                    <div id="emailHelp" class="form-text text-danger">
+                        City Name is required
+                    </div>
+                }
+                @if(GetName.hasError('minlength')){
+                    <div id="emailHelp" class="form-text text-danger">
+                        Branch Name length must be greater than 3
+                    </div>
+                }
+            }
+            
+
+            
+            
+        </div>
+        <div class="mb-3">
+            <label for="chargePrice" class="form-label"> City Charge Price</label>
+            <input type="text" class="form-control" id="chargePrice" aria-describedby="emailHelp"
+                placeholder="Enter Charge Price" formControlName="chargePrice" />
+            @if(GetChargePrice.touched){
+                @if (GetChargePrice.hasError('required')) {
+                    <div id="emailHelp" class="form-text text-danger">
+                        Branch CreationDate is required
+                    </div>
+                }
+            }
+
+        </div>
+        <div class="mb-3">
+            <label for="pickUpPrice" class="form-label">pickUp Price</label>
+            <input type="text" class="form-control" id="pickUpPrice" aria-describedby="emailHelp"
+                placeholder="Enter pickUp Price " formControlName="pickUpPrice" />
+            @if (GetPickUpPrice.touched) {
+                @if (GetPickUpPrice.hasError('required')) {
+                    <div id="emailHelp" class="form-text text-danger">
+                        Branch Location is required
+                    </div>
+                }
+            }
+
+        </div>
+        <div class="mb-3">
+            <label for="SelectGovernorate" class="form-label fw-bold">Select Governorate</label>
+            <select id="SelectGovernorate" class="form-select" formControlName="selectedGov">
+                <option selected disabled value="0">Choose Governorate</option>
+                @for (item of AllGov?.data; track $index) {
+                    <option [value]="item.id">{{item.name}}</option> 
+                }
+            </select>
+        </div>
+        <button type="submit" class="btn btn-dark d-block w-25">
+            {{CityId==0?"Add New City":"Edit City"}}
+        </button>
+    </form>
+    <button (click)="Back()"  type="submit"  class="btn btn-warning d-block w-25 mt-2">
+        Back To List
+    </button>
+</div>
