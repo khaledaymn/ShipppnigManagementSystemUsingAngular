@@ -121,8 +121,8 @@ export const routes: Routes = [
   //   loadChildren: () => import("./features/merchant/merchant.routes").then((r) => r.MERCHANT_ROUTES),
   //   canActivate: [() => roleGuard([Role.MERCHANT])],
   // },
-  // {
-  //   path: "**",
-  //   loadComponent: () => import("./pages/not-found/not-found.component").then((m) => m.NotFoundComponent),
-  // },
+  {
+    path: "**",
+    loadComponent: () => import("./pages/not-found/not-found.component").then((m) => m.NotFoundComponent),
+  },
 ]
