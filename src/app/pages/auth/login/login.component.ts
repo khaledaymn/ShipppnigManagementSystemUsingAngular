@@ -4,7 +4,6 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angula
 import { Router, RouterModule } from "@angular/router"
 import { AuthService } from "../../../core/services/auth.service"
 import { Role } from "../../../core/models/role.enum"
-import { User } from "../../../core/models/user"
 
 @Component({
   selector: "app-login",
@@ -41,18 +40,24 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.invalid) {
       return
     }
-    console.log(this.loginForm.value);
 
     this.isLoading = true
     this.errorMessage = ""
 
-    this.authService.login(this.loginForm.value).subscribe({
+    const credentials = {
+      email: this.loginForm.value.email,
+      password: this.loginForm.value.password,
+    }
+
+    this.authService.login(credentials).subscribe({
       next: (user) => {
         this.redirectBasedOnRole(user.roleId)
-        
       },
       error: (error) => {
         this.errorMessage = error.message || "Login failed. Please try again."
+        this.isLoading = false
+      },
+      complete: () => {
         this.isLoading = false
       },
     })

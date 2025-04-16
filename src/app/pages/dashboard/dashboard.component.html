@@ -1,0 +1,26 @@
+<!-- Add Bootstrap CSS in your main index.html or angular.json -->
+<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css"> -->
+
+<div class="dashboard-container py-4 px-3">
+  <div class="dashboard-header mb-4">
+    <h1 class="fw-bold mb-2">Dashboard</h1>
+    <p class="text-secondary">Order Status Overview</p>
+  </div>
+
+  <div class="row g-4">
+    <div class="col-sm-6 col-md-4 col-lg-3" *ngFor="let card of statusCards">
+      <div class="card status-card h-100">
+        <div class="card-body">
+          <div class="d-flex align-items-center mb-3">
+            <div class="status-icon me-2">
+              <i class="bi {{ card.icon }}"></i>
+            </div>
+            <span class="status-title text-secondary">{{ card.title }}</span>
+          </div>
+          <div class="status-count">{{ card.count }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

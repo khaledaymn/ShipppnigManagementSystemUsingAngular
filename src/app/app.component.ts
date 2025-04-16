@@ -37,14 +37,18 @@ export class AppComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private sidebarService: SidebarService,
-  ) {}
+  ) {
 
+  }
+  
   ngOnInit(): void {
     this.authService.currentUser$.subscribe((user) => {
       this.isAuthenticated = !!user
       this.userRole = user?.roleId || null
+      console.log(this.userRole);
+      
     })
-
+    
     this.sidebarService.isCollapsed$.subscribe((isCollapsed) => {
       this.isSidebarCollapsed = isCollapsed
     })

@@ -3,6 +3,7 @@ import { BranchComponent } from "./pages/branch/branch.component"
 import { BranchFormComponent } from "./pages/branch-form/branch-form.component"
 import { EmployeeComponent } from "./pages/employee/employee.component"
 import { EmployeeFormComponent } from "./pages/employee-form/employee-form.component"
+import { authGuard } from "./core/guards/auth.guard"
 
 export const routes: Routes = [
   {
@@ -30,11 +31,11 @@ export const routes: Routes = [
       },
     ],
   },
-  // {
-  //   path: "dashboard",
-  //   loadComponent: () => import("./features/dashboard/dashboard.component").then((m) => m.DashboardComponent),
-  //   canActivate: [authGuard],
-  // },
+  {
+    path: "dashboard",
+    loadComponent: () => import("./pages/dashboard/dashboard.component").then((m) => m.DashboardComponent),
+    // canActivate: [authGuard],
+  },
     {path:'Branch',component:BranchComponent},
     {path:'Branch/:id/edit',component:BranchFormComponent},
     {path:'Employee',component:EmployeeComponent},
@@ -65,8 +66,8 @@ export const routes: Routes = [
   //   loadChildren: () => import("./features/merchant/merchant.routes").then((r) => r.MERCHANT_ROUTES),
   //   canActivate: [() => roleGuard([Role.MERCHANT])],
   // },
-  {
-    path: "**",
-    loadComponent: () => import("./pages/not-found/not-found.component").then((m) => m.NotFoundComponent),
-  },
+  // {
+  //   path: "**",
+  //   loadComponent: () => import("./pages/not-found/not-found.component").then((m) => m.NotFoundComponent),
+  // },
 ]
