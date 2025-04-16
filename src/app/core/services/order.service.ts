@@ -33,19 +33,19 @@ export class OrderService {
   }
 
   getOrderById(id: number): Observable<Order> {
-    return this.http.get<Order>(`${this.apiUrl}/${id}`)
+    return this.http.get<Order>(`${this.apiUrl}/GetById/${id}`)
   }
 
   getOrdersByStatus(status: OrderState): Observable<Order[]> {
-    return this.http.get<Order[]>(`${this.apiUrl}/status/${status}`)
+    return this.http.get<Order[]>(`${this.apiUrl}/GetByStatus/${status}`)
   }
 
   getOrderByProductId(productId: number): Observable<OrderProduct[]> {
-    return this.http.get<OrderProduct[]>(`${this.apiUrl}/product/${productId}`)
+    return this.http.get<OrderProduct[]>(`${this.apiUrl}/GetProductByOrderId/${productId}`)
   }
 
   createOrder(order: OrderCreateRequest): Observable<string> {
-    return this.http.post<string>(this.apiUrl, order)
+    return this.http.post<string>(`${this.apiUrl}/CreateOrder`, order)
   }
 
   updateOrderStatus(id: number, updateRequest: OrderUpdateRequest): Observable<string> {
@@ -53,31 +53,31 @@ export class OrderService {
   }
 
   updateOrder(id: number, order: OrderCreateRequest): Observable<string> {
-    return this.http.put<string>(`${this.apiUrl}/${id}/update`, order)
+    return this.http.put<string>(`${this.apiUrl}/UpdateOrder/${id}`, order)
   }
 
   deleteOrder(id: number): Observable<string> {
-    return this.http.delete<string>(`${this.apiUrl}/${id}`)
+    return this.http.delete<string>(`${this.apiUrl}/DeleteOrder${id}`)
   }
 
   // Additional methods for lookup data
   getCities(): Observable<any[]> {
-    return this.http.get<any[]>(`${environment.apiUrl}/cities`)
+    return this.http.get<any[]>(`${environment.apiUrl}/Cities/GetAll`)
   }
 
   getBranches(): Observable<any[]> {
-    return this.http.get<any[]>(`${environment.apiUrl}/branches`)
+    return this.http.get<any[]>(`${environment.apiUrl}/Branches/GetAll`)
   }
 
   getChargeTypes(): Observable<any[]> {
-    return this.http.get<any[]>(`${environment.apiUrl}/chargeTypes`)
+    return this.http.get<any[]>(`${environment.apiUrl}/ChargeTypes/GetAll`)
   }
 
   getRepresentatives(): Observable<any[]> {
-    return this.http.get<any[]>(`${environment.apiUrl}/representatives`)
+    return this.http.get<any[]>(`${environment.apiUrl}/ShippingRepresentatives/GetAll`)
   }
 
   getMerchants(): Observable<any[]> {
-    return this.http.get<any[]>(`${environment.apiUrl}/merchants`)
+    return this.http.get<any[]>(`${environment.apiUrl}/Merchant/Get`)
   }
 }
