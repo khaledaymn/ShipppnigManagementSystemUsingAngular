@@ -48,6 +48,55 @@ export const routes: Routes = [
     {path:'City/:id/edit',component:CityFormComponent},
     {path:'weightSetting',component:StandardComponent},
     {path:'weightSetting/:id/edit',component:StandardFormComponent},
+    {
+      path: "governorates",
+      loadChildren: () => import("./pages/governorate/governorate.module").then((m) => m.GovernorateModule),
+    },
+    {
+      path: "orders",
+      canActivate: [authGuard],
+      children: [
+        {
+          path: "",
+          loadComponent: () =>
+            import("./pages/orders/orders-list/order-list.component").then((m) => m.OrdersListComponent),
+        },
+        {
+          path: "create",
+          loadComponent: () =>
+            import("./pages/orders/orders-create/order-create.component").then((m) => m.OrderCreateComponent),
+        },
+        {
+          path: "by-status",
+          loadComponent: () =>
+            import("./pages/orders/orders-by-status/orders-by-status.component").then(
+              (m) => m.OrdersByStatusComponent,
+            ),
+        },
+        {
+          path: "reports",
+          loadComponent: () =>
+            import("./pages/orders/orsers-report/orsers-report.component").then((m) => m.OrdersReportComponent),
+        },
+        {
+          path: "edit/:id",
+          loadComponent: () =>
+            import("./pages/orders/orders-edit/order-edit.component").then((m) => m.OrderEditComponent),
+        },
+        {
+          path: ":id",
+          loadComponent: () =>
+            import("./pages/orders/orders-details/order-details.component").then((m) => m.OrderDetailComponent),
+        },
+      ],
+    },
+    {
+      path: "shipping-representatives",
+      loadChildren: () =>
+        import("./pages/shipping-representative/shipping-representative.module").then(
+          (m) => m.ShippingRepresentativeModule,
+        ),
+    },
   {
     path: "unauthorized",
     loadComponent: () => import("./pages/unauthorized/unauthorized.component").then((m) => m.UnauthorizedComponent),

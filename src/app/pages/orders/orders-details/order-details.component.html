@@ -1,0 +1,260 @@
+<div class="order-detail-container">
+  <div class="order-detail-header">
+    <div class="d-flex align-items-center">
+      <button class="btn btn-sm btn-outline-secondary me-3" (click)="goBack()">
+        <i class="bi bi-arrow-left"></i> Back
+      </button>
+      <h1 *ngIf="order">Order #{{order.id}}</h1>
+      <h1 *ngIf="!order && !loading">Order Details</h1>
+    </div>
+    <div class="actions" *ngIf="order">
+      <button class="btn btn-primary" (click)="openStatusModal()">
+        <i class="bi bi-pencil"></i> Update Status
+      </button>
+    </div>
+  </div>
+
+  <!-- Loading Spinner -->
+  <div class="text-center py-5" *ngIf="loading">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <p class="mt-2">Loading order details...</p>
+  </div>
+
+  <!-- Error Message -->
+  <div class="alert alert-danger" *ngIf="!loading && !order">
+    Order not found or an error occurred while loading the order details.
+  </div>
+
+  <!-- Order Details -->
+  <div class="order-details-content" *ngIf="order">
+    <div class="row">
+      <!-- Order Summary Card -->
+      <div class="col-lg-4 mb-4">
+        <div class="card h-100">
+          <div class="card-header">
+            <h5 class="mb-0">Order Summary</h5>
+          </div>
+          <div class="card-body">
+            <div class="order-status mb-4">
+              <span class="status-badge" [ngClass]="getStatusClass(order.orderState)">
+                {{order.orderState}}
+              </span>
+              <p class="text-muted mt-2">Created on {{formatDate(order.creationDate)}}</p>
+            </div>
+
+            <div class="info-group">
+              <div class="info-label">Order Type</div>
+              <div class="info-value">{{order.orderType}}</div>
+            </div>
+
+            <div class="info-group">
+              <div class="info-label">Payment Type</div>
+              <div class="info-value">{{order.paymentType}}</div>
+            </div>
+
+            <div class="info-group">
+              <div class="info-label">Branch</div>
+              <div class="info-value">{{order.branchName}}</div>
+            </div>
+
+            <div class="info-group">
+              <div class="info-label">Merchant</div>
+              <div class="info-value">{{order.merchantName}}</div>
+            </div>
+
+            <div class="info-group" *ngIf="order.shippigRepresentativeName">
+              <div class="info-label">Shipping Representative</div>
+              <div class="info-value">{{order.shippigRepresentativeName}}</div>
+            </div>
+
+            <div class="info-group">
+              <div class="info-label">Amount Received</div>
+              <div class="info-value">{{order.amountReceived | currency:'EGP ':'symbol':'1.0-0'}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Customer Information Card -->
+      <div class="col-lg-4 mb-4">
+        <div class="card h-100">
+          <div class="card-header">
+            <h5 class="mb-0">Customer Information</h5>
+          </div>
+          <div class="card-body">
+            <div class="info-group">
+              <div class="info-label">Name</div>
+              <div class="info-value">{{order.customerName}}</div>
+            </div>
+
+            <div class="info-group">
+              <div class="info-label">Primary Phone</div>
+              <div class="info-value">
+                <a [href]="'tel:' + order.customerPhone1">{{order.customerPhone1}}</a>
+              </div>
+            </div>
+
+            <div class="info-group" *ngIf="order.customerPhone2">
+              <div class="info-label">Secondary Phone</div>
+              <div class="info-value">
+                <a [href]="'tel:' + order.customerPhone2">{{order.customerPhone2}}</a>
+              </div>
+            </div>
+
+            <div class="info-group">
+              <div class="info-label">City</div>
+              <div class="info-value">{{order.cityName}}</div>
+            </div>
+
+            <div class="info-group">
+              <div class="info-label">Address</div>
+              <div class="info-value">{{order.villageAndStreet}}</div>
+            </div>
+
+            <div class="info-group">
+              <div class="info-label">Shipping to Village</div>
+              <div class="info-value">{{order.shippingToVillage ? 'Yes' : 'No'}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Order Pricing Card -->
+      <div class="col-lg-4 mb-4">
+        <div class="card h-100">
+          <div class="card-header">
+            <h5 class="mb-0">Order Pricing</h5>
+          </div>
+          <div class="card-body">
+            <div class="pricing-summary">
+              <div class="pricing-row">
+                <div class="pricing-label">Order Price</div>
+                <div class="pricing-value">{{order.orderPrice | currency:'EGP ':'symbol':'1.0-0'}}</div>
+              </div>
+
+              <div class="pricing-row">
+                <div class="pricing-label">Shipping Fee ({{order.chargeTypeName}})</div>
+                <div class="pricing-value">{{order.chargePrice | currency:'EGP ':'symbol':'1.0-0'}}</div>
+              </div>
+
+              <div class="pricing-divider"></div>
+
+              <div class="pricing-row total">
+                <div class="pricing-label">Total</div>
+                <div class="pricing-value">{{calculateTotal() | currency:'EGP ':'symbol':'1.0-0'}}</div>
+              </div>
+
+              <div class="pricing-row received mt-3">
+                <div class="pricing-label">Amount Received</div>
+                <div class="pricing-value">{{order.amountReceived | currency:'EGP ':'symbol':'1.0-0'}}</div>
+              </div>
+
+              <div class="pricing-row balance">
+                <div class="pricing-label">Balance</div>
+                <div class="pricing-value">{{calculateTotal() - order.amountReceived | currency:'EGP ':'symbol':'1.0-0'}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Products Table -->
+    <div class="card mb-4">
+      <div class="card-header">
+        <h5 class="mb-0">Order Products</h5>
+      </div>
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <table class="table products-table">
+            <thead>
+              <tr>
+                <th>Product ID</th>
+                <th>Name</th>
+                <th>Weight</th>
+                <th>Quantity</th>
+                <th>Total Weight</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let product of order.products">
+                <td>#{{product.id}}</td>
+                <td>{{product.name}}</td>
+                <td>{{product.weight}} kg</td>
+                <td>{{product.quantity}}</td>
+                <td>{{product.weight * product.quantity}} kg</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="4" class="text-end fw-bold">Total Weight:</td>
+                <td class="fw-bold">{{order.totalWeight}} kg</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Notes Section -->
+    <div class="card mb-4" *ngIf="order.notes">
+      <div class="card-header">
+        <h5 class="mb-0">Notes</h5>
+      </div>
+      <div class="card-body">
+        <p class="mb-0">{{order.notes}}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Status Update Modal -->
+<div class="modal" [class.show]="showStatusModal" [style.display]="showStatusModal ? 'block' : 'none'" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Update Order Status</h5>
+        <button type="button" class="btn-close" (click)="closeStatusModal()"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="statusUpdateForm">
+          <div class="mb-3">
+            <label for="updateOrderState" class="form-label">Order Status</label>
+            <select class="form-select" id="updateOrderState" formControlName="orderState">
+              <option *ngFor="let state of orderStates" [value]="state">
+                {{state}}
+              </option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label for="updateRepresentative" class="form-label">Shipping Representative</label>
+            <select class="form-select" id="updateRepresentative" formControlName="shippigRepresentativeId">
+              <option value="">Select Representative</option>
+              <option *ngFor="let rep of representatives" [value]="rep.id">
+                {{rep.name}}
+              </option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label for="updateAmountReceived" class="form-label">Amount Received</label>
+            <input type="number" class="form-control" id="updateAmountReceived" formControlName="amountReceived">
+          </div>
+
+          <div class="mb-3">
+            <label for="updateNotes" class="form-label">Notes</label>
+            <textarea class="form-control" id="updateNotes" rows="3" formControlName="notes"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeStatusModal()">Cancel</button>
+        <button type="button" class="btn btn-primary" (click)="updateOrderStatus()">Update Status</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-backdrop fade show" *ngIf="showStatusModal"></div>

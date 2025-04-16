@@ -1,8 +1,8 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { BranchServivesService } from '../../core/services/branch-servives.service';
 import { IBranch } from '../../core/models/ibranch';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { BranchServives } from '../../core/services/branch-servives.service';
 
 @Component({
   selector: 'app-branch',
@@ -17,7 +17,7 @@ export class BranchComponent implements OnInit {
     PageIndex:number=1
     PageSize:number=3
     SearchByName!:string
-    constructor(private branchServices:BranchServivesService,private _router:Router){}
+    constructor(private branchServices:BranchServives,private _router:Router){}
     ngOnInit(): void {
       this.loadBranches();
 

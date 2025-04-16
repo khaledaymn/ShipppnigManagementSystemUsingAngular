@@ -1,4 +1,4 @@
-/* No imports needed */
+/* No imports needed
 
 .dashboard-container {
   background-color: #f5f7fa;
@@ -35,6 +35,56 @@
 .status-icon i {
   color: white;
   font-size: 14px;
+}
+
+.status-title {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.status-count {
+  font-size: 28px;
+  font-weight: 700;
+  color: #333;
+} */
+
+/* No imports needed */
+
+.dashboard-container {
+  background-color: #f5f7fa;
+  min-height: calc(100vh - 64px);
+}
+
+.dashboard-header h1 {
+  font-size: 1.75rem;
+  color: #333;
+}
+
+.status-card {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.status-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.status-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent; /* Changed from #00C853 to transparent */
+}
+
+.status-icon i {
+  color: #007bff; /* Changed from white to blue */
+  font-size: 23px;
 }
 
 .status-title {

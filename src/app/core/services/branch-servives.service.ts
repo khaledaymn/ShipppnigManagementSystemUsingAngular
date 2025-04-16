@@ -8,11 +8,11 @@ import { ICityToSelectIdForBranch } from '../models/icity-to-select-id-for-branc
 @Injectable({
   providedIn: 'root'
 })
-export class BranchServivesService {
+export class BranchServives {
   baseUrl = "http://localhost:5086/api/Branches"
   constructor(private http:HttpClient) { }
   GetAll(params:IBranchParams):Observable<IBranch[]>{
-      let httpParams = new HttpParams()  
+      let httpParams = new HttpParams()
       .set('pageSize',params.pageSize)
       .set('pageIndex',params.pageIndex)
       if(params.SearchByName){

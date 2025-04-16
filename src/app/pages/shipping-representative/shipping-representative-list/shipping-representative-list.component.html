@@ -1,0 +1,106 @@
+<div class="container" dir="rtl">
+    <div class="header">
+      <div class="title-section">
+        <h2>Shipping Representatives</h2>
+        <div class="breadcrumb">
+          <a routerLink="/dashboard"> </a> <span> </span>
+        </div>
+      </div>
+      <button class="btn-add" routerLink="/shipping-representatives/add">
+         New Shipping Representatives <i class="plus-icon"> + </i> 
+        
+      </button>
+    </div>
+  
+    <div class="card">
+      <div class="card-header">
+        <h3>Shipping Representatives</h3>
+      </div>
+  
+      <div class="card-body">
+        <div class="table-controls">
+          <div class="search-container">
+            <input 
+              type="text" 
+              placeholder="Search..." 
+              [(ngModel)]="searchTerm"
+              (keyup)="search()"
+            >
+          </div>
+
+          <div class="entries-container">
+            <span>Show</span>
+            <select [(ngModel)]="entriesPerPage" (change)="onEntriesPerPageChange($event)">
+              <option value="10">10</option>
+              <option value="25">25</option>
+              <option value="50">50</option>
+              <option value="100">100</option>
+            </select>
+            <span>entries</span>
+          </div>
+        </div>
+  
+        <div *ngIf="loading" class="loading">
+          <div class="spinner"></div>
+          <p>Loading data...</p>
+        </div>
+  
+        <div *ngIf="errorMessage" class="error-message">
+          {{ errorMessage }}
+        </div>
+  
+        <div class="table-responsive" *ngIf="!loading && !errorMessage">
+          <table class="table">
+            <thead>
+              <tr>
+                <th class="text-center">#</th>
+                <th>Name</th>
+                <th> Email  </th>
+                <th>Phone Number  </th>
+                <th>Branch</th>
+                <th>Ratio</th>
+                <th>Status</th>
+                <th>Setting</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let representative of filteredRepresentatives; let i = index">
+                <td class="text-center">{{ i + 1 }}</td>
+                <td>{{ representative.name }}</td>
+                <td>{{ representative.email }}</td>
+                <td>{{ representative.phoneNumber }}</td>
+                <td>
+                  <div *ngFor="let branch of representative.branches">
+                    {{ branch }}
+                  </div>
+                </td>
+                <td>{{ representative.companyPercentage }}%</td>
+                <td>
+                  <label class="switch">
+                    <input 
+                      type="checkbox" 
+                      [checked]="representative.status === 'Active'" 
+                      (change)="updateStatus(representative, $event)"
+                    >
+                    <span class="slider round"></span>
+                  </label>
+                </td>
+                <td>
+                  <div class="actions">
+                    <button class="btn-edit" [routerLink]="['/shipping-representatives/edit', representative.id]">
+                      <i class="edit-icon">✎</i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+  
+        <div *ngIf="!loading && !errorMessage && filteredRepresentatives.length === 0" class="no-data">
+            No data to display
+        </div>
+      </div>
+    </div>
+  </div>
+  
