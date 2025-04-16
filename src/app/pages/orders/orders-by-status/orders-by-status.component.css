@@ -1,0 +1,143 @@
+.orders-container {
+  padding: 20px;
+}
+
+.orders-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.orders-header h1 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #1e293b;
+  margin: 0;
+}
+
+.status-selector-container {
+  margin-bottom: 20px;
+}
+
+.orders-table-container {
+  margin-bottom: 20px;
+}
+
+.orders-table {
+  margin-bottom: 0;
+}
+
+.orders-table th {
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  padding: 16px;
+  border-bottom: 1px solid #e2e8f0;
+  background-color: #f8fafc;
+}
+
+.orders-table td {
+  padding: 16px;
+  vertical-align: middle;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.order-id {
+  font-weight: 600;
+  color: #2d60ff;
+  text-decoration: none;
+}
+
+.order-id:hover {
+  text-decoration: underline;
+}
+
+.customer-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.customer-name {
+  font-weight: 500;
+  color: #1e293b;
+}
+
+.customer-phone {
+  font-size: 12px;
+  color: #64748b;
+}
+
+.price-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.order-price {
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.charge-price {
+  font-size: 12px;
+  color: #64748b;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.status-delivered {
+  background-color: #dcfce7;
+  color: #166534;
+}
+
+.status-partially-delivered {
+  background-color: #d1fae5;
+  color: #047857;
+}
+
+.status-pending {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.status-in-transit {
+  background-color: #dbeafe;
+  color: #1e40af;
+}
+
+.status-postponed {
+  background-color: #e0e7ff;
+  color: #4338ca;
+}
+
+.status-rejected {
+  background-color: #fee2e2;
+  color: #b91c1c;
+}
+
+.actions-cell {
+  display: flex;
+  gap: 5px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .orders-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .actions-cell {
+    flex-direction: column;
+  }
+}

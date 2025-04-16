@@ -1,0 +1,279 @@
+<div class="orders-container">
+  <div class="orders-header">
+    <h1>Orders Management</h1>
+    <div class="actions">
+      <a routerLink="/orders/create" class="btn btn-primary">
+        <i class="bi bi-plus"></i> Create Order
+      </a>
+    </div>
+  </div>
+
+  <!-- Filters Section -->
+  <div class="filters-section">
+    <div class="card">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">Filters</h5>
+        <button class="btn btn-sm btn-outline-secondary" (click)="resetFilters()">
+          <i class="bi bi-arrow-counterclockwise"></i> Reset
+        </button>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="filterForm" (ngSubmit)="applyFilters()">
+          <div class="row">
+            <div class="col-md-3 mb-3">
+              <label for="searchTerm" class="form-label">Search</label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-search"></i></span>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="searchTerm"
+                  formControlName="searchTerm"
+                  placeholder="Order ID, Customer name, Phone..."
+                >
+              </div>
+            </div>
+
+            <div class="col-md-3 mb-3">
+              <label for="orderState" class="form-label">Order Status</label>
+              <select class="form-select" id="orderState" formControlName="orderState">
+                <option value="">All Statuses</option>
+                <option *ngFor="let state of orderStates" [value]="state">
+                  {{state}}
+                </option>
+              </select>
+            </div>
+
+            <div class="col-md-3 mb-3">
+              <label for="orderType" class="form-label">Order Type</label>
+              <select class="form-select" id="orderType" formControlName="orderType">
+                <option value="">All Types</option>
+                <option *ngFor="let type of orderTypes" [value]="type">
+                  {{type}}
+                </option>
+              </select>
+            </div>
+
+            <div class="col-md-3 mb-3">
+              <label for="paymentType" class="form-label">Payment Type</label>
+              <select class="form-select" id="paymentType" formControlName="paymentType">
+                <option value="">All Payment Types</option>
+                <option *ngFor="let type of paymentTypes" [value]="type">
+                  {{type}}
+                </option>
+              </select>
+            </div>
+
+            <div class="col-md-3 mb-3">
+              <label for="fromDate" class="form-label">From Date</label>
+              <input type="date" class="form-control" id="fromDate" formControlName="fromDate">
+            </div>
+
+            <div class="col-md-3 mb-3">
+              <label for="toDate" class="form-label">To Date</label>
+              <input type="date" class="form-control" id="toDate" formControlName="toDate">
+            </div>
+
+            <div class="col-md-3 mb-3">
+              <label for="merchantId" class="form-label">Merchant</label>
+              <select class="form-select" id="merchantId" formControlName="merchantId">
+                <option value="">All Merchants</option>
+                <option *ngFor="let merchant of merchants" [value]="merchant.id">
+                  {{merchant.name}}
+                </option>
+              </select>
+            </div>
+
+            <div class="col-md-3 mb-3">
+              <label for="branchId" class="form-label">Branch</label>
+              <select class="form-select" id="branchId" formControlName="branchId">
+                <option value="">All Branches</option>
+                <option *ngFor="let branch of branches" [value]="branch.id">
+                  {{branch.name}}
+                </option>
+              </select>
+            </div>
+
+            <div class="col-md-3 mb-3">
+              <label for="cityId" class="form-label">City</label>
+              <select class="form-select" id="cityId" formControlName="cityId">
+                <option value="">All Cities</option>
+                <option *ngFor="let city of cities" [value]="city.id">
+                  {{city.name}}
+                </option>
+              </select>
+            </div>
+
+            <div class="col-md-3 mb-3">
+              <label for="representativeId" class="form-label">Representative</label>
+              <select class="form-select" id="representativeId" formControlName="representativeId">
+                <option value="">All Representatives</option>
+                <option *ngFor="let rep of representatives" [value]="rep.id">
+                  {{rep.name}}
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-end">
+            <button type="submit" class="btn btn-primary">
+              <i class="bi bi-funnel"></i> Apply Filters
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Orders Table -->
+  <div class="orders-table-container">
+    <div class="card">
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <table class="table table-hover orders-table">
+            <thead>
+              <tr>
+                <th>Order ID</th>
+                <th>Customer</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Type</th>
+                <th>Payment</th>
+                <th>City</th>
+                <th>Branch</th>
+                <th>Price</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngIf="loading">
+                <td colspan="10" class="text-center py-4">
+                  <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                </td>
+              </tr>
+              <tr *ngIf="!loading && orders.length === 0">
+                <td colspan="10" class="text-center py-4">
+                  No orders found. Try adjusting your filters.
+                </td>
+              </tr>
+              <tr *ngFor="let order of orders">
+                <td>
+                  <a [routerLink]="['/orders', order.id]" class="order-id">
+                    #{{order.id}}
+                  </a>
+                </td>
+                <td>
+                  <div class="customer-info">
+                    <div class="customer-name">{{order.customerName}}</div>
+                    <div class="customer-phone">{{order.customerPhone1}}</div>
+                  </div>
+                </td>
+                <td>{{formatDate(order.creationDate)}}</td>
+                <td>
+                  <span class="status-badge" [ngClass]="getStatusClass(order.orderState)">
+                    {{order.orderState}}
+                  </span>
+                </td>
+                <td>{{order.orderType}}</td>
+                <td>{{order.paymentType}}</td>
+                <td>{{order.cityName}}</td>
+                <td>{{order.branchName}}</td>
+                <td>
+                  <div class="price-info">
+                    <div class="order-price">{{order.orderPrice | currency:'EGP ':'symbol':'1.0-0'}}</div>
+                    <div class="charge-price">+{{order.chargePrice | currency:'EGP ':'symbol':'1.0-0'}} shipping</div>
+                  </div>
+                </td>
+                <td>
+                  <div class="actions-cell">
+                    <button class="btn btn-sm btn-outline-primary me-1" [routerLink]="['/orders', order.id]">
+                      <i class="bi bi-eye"></i>
+                    </button>
+                    <button class="btn btn-sm btn-outline-success" (click)="openStatusModal(order)">
+                      <i class="bi bi-pencil"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Pagination -->
+      <div class="card-footer d-flex justify-content-between align-items-center">
+        <div class="pagination-info">
+          <!-- Showing {{(pageIndex - 1) * pageSize + 1}} to {{Math.min(pageIndex * pageSize, totalCount)}} of {{totalCount}} orders -->
+        </div>
+        <nav aria-label="Orders pagination">
+          <ul class="pagination mb-0">
+            <li class="page-item" [class.disabled]="pageIndex === 1">
+              <a class="page-link" href="javascript:void(0)" (click)="changePage(pageIndex - 1)" aria-label="Previous">
+                <span aria-hidden="true">&laquo; Previous</span>
+              </a>
+            </li>
+            <li class="page-item" *ngFor="let page of pages" [class.active]="page === pageIndex">
+              <a class="page-link" href="javascript:void(0)" (click)="changePage(page)">{{page}}</a>
+            </li>
+            <li class="page-item" [class.disabled]="pageIndex === totalPages">
+              <a class="page-link" href="javascript:void(0)" (click)="changePage(pageIndex + 1)" aria-label="Next">
+                <span aria-hidden="true">Next &raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Status Update Modal -->
+<div class="modal" [class.show]="showStatusModal" [style.display]="showStatusModal ? 'block' : 'none'" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Update Order Status</h5>
+        <button type="button" class="btn-close" (click)="closeStatusModal()"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="statusUpdateForm">
+          <div class="mb-3">
+            <label for="updateOrderState" class="form-label">Order Status</label>
+            <select class="form-select" id="updateOrderState" formControlName="orderState">
+              <option *ngFor="let state of orderStates" [value]="state">
+                {{state}}
+              </option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label for="updateRepresentative" class="form-label">Shipping Representative</label>
+            <select class="form-select" id="updateRepresentative" formControlName="shippigRepresentativeId">
+              <option value="">Select Representative</option>
+              <option *ngFor="let rep of representatives" [value]="rep.id">
+                {{rep.name}}
+              </option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label for="updateAmountReceived" class="form-label">Amount Received</label>
+            <input type="number" class="form-control" id="updateAmountReceived" formControlName="amountReceived">
+          </div>
+
+          <div class="mb-3">
+            <label for="updateNotes" class="form-label">Notes</label>
+            <textarea class="form-control" id="updateNotes" rows="3" formControlName="notes"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeStatusModal()">Cancel</button>
+        <button type="button" class="btn btn-primary" (click)="updateOrderStatus()">Update Status</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-backdrop fade show" *ngIf="showStatusModal"></div>

@@ -1,7 +1,7 @@
 <app-sidebar [userName]="user?.name" [userRole]="'Admin'">
   <ul class="nav-menu">
     <li class="nav-item">
-      <a routerLink="/admin/dashboard" routerLinkActive="active" class="nav-link" data-title="Dashboard">
+      <a routerLink="/dashboard" routerLinkActive="active" class="nav-link" data-title="Dashboard">
         <i class="bi bi-grid-1x2-fill"></i>
         <span>Dashboard</span>
       </a>
@@ -53,7 +53,7 @@
       </div>
     </li>
 
-    <!-- Users with submenu --> 
+    <!-- Users with submenu -->
     <li class="nav-item">
       <div class="nav-item-with-submenu">
         <a (click)="toggleSubmenu('users')" class="nav-link" [class.active]="isSubmenuActive('users')" data-title="Users">
@@ -76,7 +76,7 @@
             </a>
           </li>
           <li class="submenu-item">
-            <a routerLink="/admin/users/sales-representatives" routerLinkActive="active" class="submenu-link">
+            <a routerLink="shipping-representatives" routerLinkActive="active" class="submenu-link">
               <i class="bi bi-briefcase"></i>
               <span>Sales Representatives</span>
             </a>
@@ -96,7 +96,7 @@
 
         <ul class="submenu" [class.expanded]="expandedSubmenu === 'places'" data-title="Places">
           <li class="submenu-item">
-            <a routerLink="/admin/places/governorates" routerLinkActive="active" class="submenu-link">
+            <a routerLink="governorates" routerLinkActive="active" class="submenu-link">
               <i class="bi bi-map"></i>
               <span>Governorates</span>
             </a>
@@ -114,7 +114,7 @@
     <div class="section-divider">Operations</div>
 
     <li class="nav-item">
-      <a routerLink="/admin/orders" routerLinkActive="active" class="nav-link" data-title="Orders">
+      <a routerLink="orders" routerLinkActive="active" class="nav-link" data-title="Orders">
         <i class="bi bi-box-seam-fill"></i>
         <span>Orders</span>
         <span class="badge badge-warning">12</span>
@@ -122,7 +122,14 @@
     </li>
 
     <li class="nav-item">
-      <a routerLink="/admin/reports" routerLinkActive="active" class="nav-link" data-title="Order Reports">
+      <a routerLink="orders/by-status" routerLinkActive="active" class="nav-link" data-title="Orders by Status">
+        <i class="bi bi-filter-square-fill"></i>
+        <span>Orders by Status</span>
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a routerLink="orders/reports" routerLinkActive="active" class="nav-link" data-title="Order Reports">
         <i class="bi bi-bar-chart-fill"></i>
         <span>Order Reports</span>
       </a>

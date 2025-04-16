@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { BranchServivesService } from '../../core/services/branch-servives.service';
 import { ICityToSelectIdForBranch } from '../../core/models/icity-to-select-id-for-branch';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { IBranch } from '../../core/models/ibranch';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { BranchServives } from '../../core/services/branch-servives.service';
 
 @Component({
   selector: 'app-branch-form',
@@ -21,7 +21,7 @@ export class BranchFormComponent implements OnInit {
      Location: new FormControl('',Validators.required),
      citySelect : new FormControl(0,Validators.required)
   }) 
-    constructor(private _branchServices:BranchServivesService, 
+    constructor(private _branchServices:BranchServives, 
       private _router:Router,
       private _activatedRoute:ActivatedRoute,   
       private _location:Location

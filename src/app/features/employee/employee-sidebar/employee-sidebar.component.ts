@@ -20,6 +20,6 @@ export class EmployeeSidebarComponent {
       this.user = user
     })
     // this.user = this.authService.mockUsers[1];
-    this.username = this.user?.username;
+    this.username = this.user?.firstName;
   }
 }

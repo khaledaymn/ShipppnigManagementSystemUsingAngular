@@ -3,13 +3,13 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EmployeeService } from '../../core/services/employee.service';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { BranchServivesService } from '../../core/services/branch-servives.service';
 import { IBranch } from '../../core/models/ibranch';
 import { ICityToSelectIdForBranch } from '../../core/models/icity-to-select-id-for-branch';
 import { IGroupPages } from '../../core/models/igroup-pages';
 import { IAddEmployee } from '../../core/models/iadd-employee';
 import { NEVER } from 'rxjs';
 import { IUpdateEmployee } from '../../core/models/iupdate-employee';
+import { BranchServives } from '../../core/services/branch-servives.service';
 
 @Component({
   selector: 'app-employee-form',
@@ -21,7 +21,7 @@ export class EmployeeFormComponent implements OnInit {
   branches!:IBranch[]
   Groups!:IGroupPages
   EmpId!:any
-  constructor(private _router:Router,private _employeeServices:EmployeeService,private _route:ActivatedRoute,private _branchServices:BranchServivesService,private _location:Location){}
+  constructor(private _router:Router,private _employeeServices:EmployeeService,private _route:ActivatedRoute,private _branchServices:BranchServives,private _location:Location){}
   EmpForm = new FormGroup({
     name: new FormControl('',[Validators.required,Validators.minLength(5)]),
     userName: new FormControl('',[Validators.required,Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]+$/)]),
@@ -50,7 +50,7 @@ export class EmployeeFormComponent implements OnInit {
     }
     this._branchServices.GetAllWithOutPagination().subscribe({
       next:(response)=>{
-        this.branches =response
+        this.branches = response
       }
     })
     this._employeeServices.GetAllGroup().subscribe({

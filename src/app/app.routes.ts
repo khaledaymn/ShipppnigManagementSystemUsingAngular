@@ -3,6 +3,7 @@ import { BranchComponent } from "./pages/branch/branch.component"
 import { BranchFormComponent } from "./pages/branch-form/branch-form.component"
 import { EmployeeComponent } from "./pages/employee/employee.component"
 import { EmployeeFormComponent } from "./pages/employee-form/employee-form.component"
+import { authGuard } from "./core/guards/auth.guard"
 import { CityComponent } from "./pages/city/city.component"
 import { CityFormComponent } from "./pages/city-form/city-form.component"
 import { StandardComponent } from "./pages/standard/standard.component"
@@ -36,11 +37,11 @@ export const routes: Routes = [
       },
     ],
   },
-  // {
-  //   path: "dashboard",
-  //   loadComponent: () => import("./features/dashboard/dashboard.component").then((m) => m.DashboardComponent),
-  //   canActivate: [authGuard],
-  // },
+  {
+    path: "dashboard",
+    loadComponent: () => import("./pages/dashboard/dashboard.component").then((m) => m.DashboardComponent),
+    // canActivate: [authGuard],
+  },
     {path:'Branch',component:BranchComponent},
     {path:'Branch/:id/edit',component:BranchFormComponent},
     {path:'Employee',component:EmployeeComponent},
@@ -49,8 +50,60 @@ export const routes: Routes = [
     {path:'City/:id/edit',component:CityFormComponent},
     {path:'weightSetting',component:StandardComponent},
     {path:'weightSetting/:id/edit',component:StandardFormComponent},
+
     {path:'Group',component:GroupComponent},
     {path:'permissions',component:MeduleComponent},
+
+    {
+      path: "governorates",
+      loadChildren: () => import("./pages/governorate/governorate.module").then((m) => m.GovernorateModule),
+    },
+    {
+      path: "orders",
+      canActivate: [authGuard],
+      children: [
+        {
+          path: "",
+          loadComponent: () =>
+            import("./pages/orders/orders-list/order-list.component").then((m) => m.OrdersListComponent),
+        },
+        {
+          path: "create",
+          loadComponent: () =>
+            import("./pages/orders/orders-create/order-create.component").then((m) => m.OrderCreateComponent),
+        },
+        {
+          path: "by-status",
+          loadComponent: () =>
+            import("./pages/orders/orders-by-status/orders-by-status.component").then(
+              (m) => m.OrdersByStatusComponent,
+            ),
+        },
+        {
+          path: "reports",
+          loadComponent: () =>
+            import("./pages/orders/orsers-report/orsers-report.component").then((m) => m.OrdersReportComponent),
+        },
+        {
+          path: "edit/:id",
+          loadComponent: () =>
+            import("./pages/orders/orders-edit/order-edit.component").then((m) => m.OrderEditComponent),
+        },
+        {
+          path: ":id",
+          loadComponent: () =>
+            import("./pages/orders/orders-details/order-details.component").then((m) => m.OrderDetailComponent),
+        },
+      ],
+    },
+    {
+      path: "shipping-representatives",
+      loadChildren: () =>
+        import("./pages/shipping-representative/shipping-representative.module").then(
+          (m) => m.ShippingRepresentativeModule,
+        ),
+    },
+
   {
     path: "unauthorized",
     loadComponent: () => import("./pages/unauthorized/unauthorized.component").then((m) => m.UnauthorizedComponent),
@@ -75,8 +128,8 @@ export const routes: Routes = [
   //   loadChildren: () => import("./features/merchant/merchant.routes").then((r) => r.MERCHANT_ROUTES),
   //   canActivate: [() => roleGuard([Role.MERCHANT])],
   // },
-  {
-    path: "**",
-    loadComponent: () => import("./pages/not-found/not-found.component").then((m) => m.NotFoundComponent),
-  },
+  // {
+  //   path: "**",
+  //   loadComponent: () => import("./pages/not-found/not-found.component").then((m) => m.NotFoundComponent),
+  // },
 ]

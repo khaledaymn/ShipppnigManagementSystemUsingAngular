@@ -1,13 +1,13 @@
 export interface User {
   id: string
-  username: string | undefined
+  username?: string
   email: string
-  firstName: string
-  lastName: string
+  firstName?: string
+  lastName?: string
   roleId: string
-  isActive: boolean
-  createdAt: Date
-  updatedAt: Date
+  isActive?: boolean
+  createdAt?: Date
+  updatedAt?: Date
 }
 
 export interface UserCredentials {
@@ -16,7 +16,21 @@ export interface UserCredentials {
 }
 
 export interface AuthResponse {
-  user: User
+  id: string
+  message: string
   token: string
-  refreshToken: string
+  role: string
+  permissions: {
+    [moduleName: string]: string[]
+  }
+}
+
+export interface ForgotPasswordRequest {
+  email: string
+}
+
+export interface ResetPasswordRequest {
+  password: string
+  email: string
+  token: string
 }

@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  apiUrl: "https://localhost:44378",
+  apiUrl: "https://shippingmanagementsystem.runasp.net",
 }

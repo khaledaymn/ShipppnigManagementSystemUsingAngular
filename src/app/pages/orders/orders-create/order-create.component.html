@@ -1,0 +1,332 @@
+<div class="order-create-container">
+  <div class="order-create-header">
+    <div class="d-flex align-items-center">
+      <button class="btn btn-sm btn-outline-secondary me-3" (click)="cancel()">
+        <i class="bi bi-arrow-left"></i> Back
+      </button>
+      <h1>Create New Order</h1>
+    </div>
+  </div>
+
+  <!-- Loading Spinner -->
+  <div class="text-center py-5" *ngIf="loading">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <p class="mt-2">Loading form data...</p>
+  </div>
+
+  <!-- Error Message -->
+  <div class="alert alert-danger" *ngIf="errorMessage">
+    {{errorMessage}}
+  </div>
+
+  <!-- Order Form -->
+  <form [formGroup]="orderForm" (ngSubmit)="onSubmit()" *ngIf="!loading" class="modern-form">
+    <div class="form-container">
+      <div class="form-row">
+        <div class="form-column">
+          <div class="form-field">
+            <label for="customerName">Customer Name</label>
+            <input
+              type="text"
+              id="customerName"
+              formControlName="customerName"
+              [class.is-invalid]="orderForm.get('customerName')?.invalid && orderForm.get('customerName')?.touched"
+            >
+            <div class="invalid-feedback" *ngIf="orderForm.get('customerName')?.invalid && orderForm.get('customerName')?.touched">
+              Customer name is required.
+            </div>
+          </div>
+        </div>
+
+        <div class="form-column">
+          <div class="form-field">
+            <label for="merchantId">Merchant</label>
+            <select
+              id="merchantId"
+              formControlName="merchantId"
+              [class.is-invalid]="orderForm.get('merchantId')?.invalid && orderForm.get('merchantId')?.touched"
+            >
+              <option value="">Select Merchant</option>
+              <option *ngFor="let merchant of merchants" [value]="merchant.id">{{merchant.name}}</option>
+            </select>
+            <div class="invalid-feedback" *ngIf="orderForm.get('merchantId')?.invalid && orderForm.get('merchantId')?.touched">
+              Merchant is required.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-column">
+          <div class="form-field">
+            <label for="customerPhone1">Primary Phone Number</label>
+            <input
+              type="text"
+              id="customerPhone1"
+              formControlName="customerPhone1"
+              placeholder="e.g. 01123456789"
+              [class.is-invalid]="orderForm.get('customerPhone1')?.invalid && orderForm.get('customerPhone1')?.touched"
+            >
+            <div class="invalid-feedback" *ngIf="orderForm.get('customerPhone1')?.invalid && orderForm.get('customerPhone1')?.touched">
+              <span *ngIf="orderForm.get('customerPhone1')?.errors?.['required']">Phone number is required.</span>
+              <span *ngIf="orderForm.get('customerPhone1')?.errors?.['pattern']">Please enter a valid Egyptian mobile number (e.g. 01123456789).</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-column">
+          <div class="form-field">
+            <label for="customerPhone2">Secondary Phone Number (Optional)</label>
+            <input
+              type="text"
+              id="customerPhone2"
+              formControlName="customerPhone2"
+              placeholder="e.g. 01123456789"
+              [class.is-invalid]="orderForm.get('customerPhone2')?.invalid && orderForm.get('customerPhone2')?.touched"
+            >
+            <div class="invalid-feedback" *ngIf="orderForm.get('customerPhone2')?.invalid && orderForm.get('customerPhone2')?.touched">
+              Please enter a valid Egyptian mobile number (e.g. 01123456789).
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-column">
+          <div class="form-field">
+            <label for="cityId">City</label>
+            <select
+              id="cityId"
+              formControlName="cityId"
+              [class.is-invalid]="orderForm.get('cityId')?.invalid && orderForm.get('cityId')?.touched"
+            >
+              <option value="">Select City</option>
+              <option *ngFor="let city of cities" [value]="city.id">{{city.name}}</option>
+            </select>
+            <div class="invalid-feedback" *ngIf="orderForm.get('cityId')?.invalid && orderForm.get('cityId')?.touched">
+              City is required.
+            </div>
+          </div>
+        </div>
+
+        <div class="form-column">
+          <div class="form-field">
+            <label for="branchId">Branch</label>
+            <select
+              id="branchId"
+              formControlName="branchId"
+              [class.is-invalid]="orderForm.get('branchId')?.invalid && orderForm.get('branchId')?.touched"
+            >
+              <option value="">Select Branch</option>
+              <option *ngFor="let branch of branches" [value]="branch.id">{{branch.name}}</option>
+            </select>
+            <div class="invalid-feedback" *ngIf="orderForm.get('branchId')?.invalid && orderForm.get('branchId')?.touched">
+              Branch is required.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-column">
+          <div class="form-field">
+            <label for="villageAndStreet">Address</label>
+            <input
+              type="text"
+              id="villageAndStreet"
+              formControlName="villageAndStreet"
+              [class.is-invalid]="orderForm.get('villageAndStreet')?.invalid && orderForm.get('villageAndStreet')?.touched"
+            >
+            <div class="invalid-feedback" *ngIf="orderForm.get('villageAndStreet')?.invalid && orderForm.get('villageAndStreet')?.touched">
+              Address is required.
+            </div>
+          </div>
+        </div>
+
+        <div class="form-column">
+          <div class="form-field">
+            <label for="chargeTypeId">Shipping Type</label>
+            <select
+              id="chargeTypeId"
+              formControlName="chargeTypeId"
+              [class.is-invalid]="orderForm.get('chargeTypeId')?.invalid && orderForm.get('chargeTypeId')?.touched"
+            >
+              <option value="">Select Shipping Type</option>
+              <option *ngFor="let type of chargeTypes" [value]="type.id">{{type.name}}</option>
+            </select>
+            <div class="invalid-feedback" *ngIf="orderForm.get('chargeTypeId')?.invalid && orderForm.get('chargeTypeId')?.touched">
+              Shipping type is required.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-column">
+          <div class="form-field">
+            <label for="orderType">Order Type</label>
+            <select
+              id="orderType"
+              formControlName="orderType"
+              [class.is-invalid]="orderForm.get('orderType')?.invalid && orderForm.get('orderType')?.touched"
+            >
+              <option *ngFor="let type of orderTypes" [value]="type">{{type}}</option>
+            </select>
+            <div class="invalid-feedback" *ngIf="orderForm.get('orderType')?.invalid && orderForm.get('orderType')?.touched">
+              Order type is required.
+            </div>
+          </div>
+        </div>
+
+        <div class="form-column">
+          <div class="form-field">
+            <label for="paymentType">Payment Type</label>
+            <select
+              id="paymentType"
+              formControlName="paymentType"
+              [class.is-invalid]="orderForm.get('paymentType')?.invalid && orderForm.get('paymentType')?.touched"
+            >
+              <option *ngFor="let type of paymentTypes" [value]="type">{{type}}</option>
+            </select>
+            <div class="invalid-feedback" *ngIf="orderForm.get('paymentType')?.invalid && orderForm.get('paymentType')?.touched">
+              Payment type is required.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-column">
+          <div class="form-field">
+            <label for="orderPrice">Order Price (EGP)</label>
+            <input
+              type="number"
+              id="orderPrice"
+              formControlName="orderPrice"
+              [class.is-invalid]="orderForm.get('orderPrice')?.invalid && orderForm.get('orderPrice')?.touched"
+            >
+            <div class="invalid-feedback" *ngIf="orderForm.get('orderPrice')?.invalid && orderForm.get('orderPrice')?.touched">
+              <span *ngIf="orderForm.get('orderPrice')?.errors?.['required']">Order price is required.</span>
+              <span *ngIf="orderForm.get('orderPrice')?.errors?.['min']">Order price must be greater than or equal to 0.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-column">
+          <div class="form-field checkbox-field">
+            <label class="checkbox-container">
+              <input
+                type="checkbox"
+                id="shippingToVillage"
+                formControlName="shippingToVillage"
+              >
+              <span class="checkbox-label">Shipping to Village</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-column full-width">
+          <div class="form-field">
+            <label for="notes">Notes (Optional)</label>
+            <textarea
+              id="notes"
+              formControlName="notes"
+              rows="3"
+            ></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Products Section -->
+    <div class="products-section">
+      <div class="products-header">
+        <h2>Products</h2>
+        <button type="button" class="btn btn-sm btn-outline-primary" (click)="addProduct()">
+          <i class="bi bi-plus"></i> Add Product
+        </button>
+      </div>
+
+      <div formArrayName="products">
+        <div *ngFor="let product of productsFormArray.controls; let i = index" [formGroupName]="i" class="product-item">
+          <div class="form-row">
+            <div class="form-column">
+              <div class="form-field">
+                <label [for]="'productName' + i">Product Name</label>
+                <input
+                  type="text"
+                  [id]="'productName' + i"
+                  formControlName="name"
+                  [class.is-invalid]="product.get('name')?.invalid && product.get('name')?.touched"
+                >
+                <div class="invalid-feedback" *ngIf="product.get('name')?.invalid && product.get('name')?.touched">
+                  Product name is required.
+                </div>
+              </div>
+            </div>
+
+            <div class="form-column">
+              <div class="form-field">
+                <label [for]="'productWeight' + i">Weight (kg)</label>
+                <input
+                  type="number"
+                  [id]="'productWeight' + i"
+                  formControlName="weight"
+                  [class.is-invalid]="product.get('weight')?.invalid && product.get('weight')?.touched"
+                >
+                <div class="invalid-feedback" *ngIf="product.get('weight')?.invalid && product.get('weight')?.touched">
+                  <span *ngIf="product.get('weight')?.errors?.['required']">Weight is required.</span>
+                  <span *ngIf="product.get('weight')?.errors?.['min']">Weight must be greater than 0.1 kg.</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-column">
+              <div class="form-field">
+                <label [for]="'productQuantity' + i">Quantity</label>
+                <input
+                  type="number"
+                  [id]="'productQuantity' + i"
+                  formControlName="quantity"
+                  [class.is-invalid]="product.get('quantity')?.invalid && product.get('quantity')?.touched"
+                >
+                <div class="invalid-feedback" *ngIf="product.get('quantity')?.invalid && product.get('quantity')?.touched">
+                  <span *ngIf="product.get('quantity')?.errors?.['required']">Quantity is required.</span>
+                  <span *ngIf="product.get('quantity')?.errors?.['min']">Quantity must be at least 1.</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-column action-column">
+              <button
+                type="button"
+                class="btn btn-sm btn-outline-danger remove-product"
+                (click)="removeProduct(i)"
+                [disabled]="productsFormArray.length === 1"
+              >
+                <i class="bi bi-trash"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="total-weight">
+        <strong>Total Weight:</strong> {{calculateTotalWeight()}} kg
+      </div>
+    </div>
+
+    <!-- Form Actions -->
+    <div class="form-actions">
+      <button type="button" class="btn btn-secondary" (click)="cancel()">Cancel</button>
+      <button type="submit" class="btn btn-primary save-button" [disabled]="submitting">
+        <span *ngIf="submitting" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+        Create Order
+      </button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,206 @@
+<div class="report-container">
+  <div class="report-header">
+    <h1>Orders Report</h1>
+    <div class="actions">
+      <button class="btn btn-success" (click)="exportToCsv()" [disabled]="orders.length === 0">
+        <i class="bi bi-file-earmark-excel"></i> Export to CSV
+      </button>
+    </div>
+  </div>
+
+  <!-- Filters Section -->
+  <div class="filters-section">
+    <div class="card">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">Report Filters</h5>
+        <button class="btn btn-sm btn-outline-secondary" (click)="resetFilters()">
+          <i class="bi bi-arrow-counterclockwise"></i> Reset
+        </button>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="filterForm" (ngSubmit)="applyFilters()">
+          <div class="row">
+            <div class="col-md-3 mb-3">
+              <label for="orderState" class="form-label">Order Status</label>
+              <select class="form-select" id="orderState" formControlName="orderState">
+                <option value="">All Statuses</option>
+                <option *ngFor="let state of orderStates" [value]="state">
+                  {{state}}
+                </option>
+              </select>
+            </div>
+
+            <div class="col-md-3 mb-3">
+              <label for="orderType" class="form-label">Order Type</label>
+              <select class="form-select" id="orderType" formControlName="orderType">
+                <option value="">All Types</option>
+                <option *ngFor="let type of orderTypes" [value]="type">
+                  {{type}}
+                </option>
+              </select>
+            </div>
+
+            <div class="col-md-3 mb-3">
+              <label for="paymentType" class="form-label">Payment Type</label>
+              <select class="form-select" id="paymentType" formControlName="paymentType">
+                <option value="">All Payment Types</option>
+                <option *ngFor="let type of paymentTypes" [value]="type">
+                  {{type}}
+                </option>
+              </select>
+            </div>
+
+            <div class="col-md-3 mb-3">
+              <label for="merchantId" class="form-label">Merchant</label>
+              <select class="form-select" id="merchantId" formControlName="merchantId">
+                <option value="">All Merchants</option>
+                <option *ngFor="let merchant of merchants" [value]="merchant.id">
+                  {{merchant.name}}
+                </option>
+              </select>
+            </div>
+
+            <div class="col-md-3 mb-3">
+              <label for="fromDate" class="form-label">From Date</label>
+              <input type="date" class="form-control" id="fromDate" formControlName="fromDate">
+            </div>
+
+            <div class="col-md-3 mb-3">
+              <label for="toDate" class="form-label">To Date</label>
+              <input type="date" class="form-control" id="toDate" formControlName="toDate">
+            </div>
+
+            <div class="col-md-3 mb-3">
+              <label for="branchId" class="form-label">Branch</label>
+              <select class="form-select" id="branchId" formControlName="branchId">
+                <option value="">All Branches</option>
+                <option *ngFor="let branch of branches" [value]="branch.id">
+                  {{branch.name}}
+                </option>
+              </select>
+            </div>
+
+            <div class="col-md-3 mb-3">
+              <label for="cityId" class="form-label">City</label>
+              <select class="form-select" id="cityId" formControlName="cityId">
+                <option value="">All Cities</option>
+                <option *ngFor="let city of cities" [value]="city.id">
+                  {{city.name}}
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-end">
+            <button type="submit" class="btn btn-primary">
+              <i class="bi bi-funnel"></i> Generate Report
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading Spinner -->
+  <div class="text-center py-5" *ngIf="loading">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <p class="mt-2">Generating report...</p>
+  </div>
+
+  <!-- Report Summary -->
+  <div class="report-summary" *ngIf="!loading && orders.length > 0">
+    <div class="row">
+      <div class="col-md-3 mb-4">
+        <div class="summary-card">
+          <div class="summary-icon">
+            <i class="bi bi-box-seam"></i>
+          </div>
+          <div class="summary-content">
+            <div class="summary-title">Total Orders</div>
+            <div class="summary-value">{{totalOrders}}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3 mb-4">
+        <div class="summary-card">
+          <div class="summary-icon">
+            <i class="bi bi-cash"></i>
+          </div>
+          <div class="summary-content">
+            <div class="summary-title">Total Order Value</div>
+            <div class="summary-value">{{totalOrderValue | currency:'EGP ':'symbol':'1.0-0'}}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3 mb-4">
+        <div class="summary-card">
+          <div class="summary-icon">
+            <i class="bi bi-truck"></i>
+          </div>
+          <div class="summary-content">
+            <div class="summary-title">Total Shipping Value</div>
+            <div class="summary-value">{{totalShippingValue | currency:'EGP ':'symbol':'1.0-0'}}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3 mb-4">
+        <div class="summary-card">
+          <div class="summary-icon">
+            <i class="bi bi-speedometer2"></i>
+          </div>
+          <div class="summary-content">
+            <div class="summary-title">Total Weight</div>
+            <div class="summary-value">{{totalWeight}} kg</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <!-- Status Distribution -->
+      <div class="col-md-6 mb-4">
+        <div class="card h-100">
+          <div class="card-header">
+            <h5 class="mb-0">Status Distribution</h5>
+          </div>
+          <div class="card-body">
+            <div class="distribution-list">
+              <div class="distribution-item" *ngFor="let status of orderStates">
+                <ng-container *ngIf="statusCounts[status]">
+                  <div class="distribution-label">
+                    <span class="status-badge" [ngClass]="getStatusClass(status)">{{status}}</span>
+                  </div>
+                  <div class="distribution-bar">
+                    <div class="progress">
+                      <div
+                        class="progress-bar"
+                        [ngClass]="getStatusClass(status)"
+                        [style.width.%]="(statusCounts[status] / totalOrders) * 100"
+                      ></div>
+                    </div>
+                  </div>
+                  <div class="distribution-value">
+                    {{statusCounts[status]}} ({{(statusCounts[status] / totalOrders) * 100 | number:'1.0-0'}}%)
+                  </div>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Payment Type Distribution -->
+      <div class="col-md-6 mb-4">
+        <div class="card h-100">
+          <div class="card-header">
+            <h5 class="mb-0">Payment Type Distribution</h5>
+          </div>
+          <div class="card-body">
+            <div class="distribution-list">
+              <div class="distribution-item" *ngFor="let type of paymentTypes">
+                <ng-container *ngIf="paymentTypeCounts[type]">
