@@ -1,4 +1,4 @@
-import { GovernorateModule } from './../../governorate/governorate.module';
+// import { GovernorateModule } from './../../governorate/governorate.module';
 import { Component,  OnInit } from "@angular/core"
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from "@angular/forms"
 import { Router } from "@angular/router"

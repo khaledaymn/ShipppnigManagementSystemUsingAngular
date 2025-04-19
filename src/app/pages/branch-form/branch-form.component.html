@@ -20,18 +20,20 @@
             }
             }
         </div>
-        <div class="mb-3">
-            <label for="CreationDate" class="form-label">Branch Creation Date</label>
-            <input type="text" class="form-control" id="CreationDate" aria-describedby="emailHelp"
-                placeholder="Enter Branch CreationDate" formControlName="CreationDate" />
-            @if(GetCreationDate.touched){
-            @if(GetCreationDate.hasError('required')){
-            <div id="emailHelp" class="form-text text-danger">
-                Branch CreationDate is required
+        @if (branchId!=0) {
+            <div class="mb-3">
+                <label for="CreationDate" class="form-label">Branch Creation Date</label>
+                <input type="text" class="form-control" id="CreationDate" aria-describedby="emailHelp"
+                    placeholder="Enter Branch CreationDate" formControlName="CreationDate" />
+                @if(GetCreationDate.touched){
+                @if(GetCreationDate.hasError('required')){
+                <div id="emailHelp" class="form-text text-danger">
+                    Branch CreationDate is required
+                </div>
+                }
+                }
             </div>
-            }
-            }
-        </div>
+        }
         <div class="mb-3">
             <label for="Location" class="form-label">Branch Location</label>
             <input type="text" class="form-control" id="Location" aria-describedby="emailHelp"
@@ -48,7 +50,7 @@
             <label for="citySelect" class="form-label fw-bold">Select City</label>
             <select id="citySelect" class="form-select" formControlName="citySelect">
                 <option selected disabled value="0">Choose City</option>
-                @for (item of CityBranch; track $index) {
+                @for (item of CityBranch?.data; track $index) {
                 <option [value]="item.id">{{item.name}}</option>
                 }
             </select>

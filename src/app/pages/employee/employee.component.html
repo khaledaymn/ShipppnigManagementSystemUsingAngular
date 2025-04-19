@@ -1,11 +1,11 @@
-<div class="mt-5 container p-5">
+<div class="container">
     <h1 class="text-center text-muted mb-4">Employees</h1>
     <div class="d-flex justify-content-between">
       <button class="btn btn-outline-primary" routerLink="/Employee/0/edit">
         Add New Employee
       </button>
-      <input type="text" [(ngModel)]="Search" (input)="SearchHandle(Search)" class="form-control w-25" placeholder="Search ...." 
-         />
+      <!-- <input type="text" [(ngModel)]="Search" (input)="SearchHandle(Search)" class="form-control w-25" placeholder="Search ...." 
+         /> -->
     </div>
     <table class="table mt-5">
       <thead>
@@ -20,13 +20,13 @@
         </tr>
       </thead>
       <tbody>
-        @for (emp of employees; track $index) {
+        @for ( emp of employees?.data; track $index) {
           <tr>
             <th scope="row">{{emp.name}}</th>
             <td>{{emp.email}}</td>
             <td>{{emp.phoneNumber}}</td>
-            <td>{{emp.brachName}}</td>
-            <td>{{emp.groupName}}</td>
+            <td>{{emp.branches[0].name}}</td>
+            <td>{{emp.permission}}</td>
             <td>
               <div class="form-check ms-3">
                 <input class="form-check-input" type="checkbox" [checked]="!emp.isDeleted"
@@ -42,10 +42,10 @@
 
       </tbody>
     </table>
-    <button (click)="Pagination(PageIndex-1)"  [disabled]="PageIndex<=1" class="btn btn-warning">
+    <button (click)="Pagination(PageIndex-1)"  [disabled]="PageIndex<=1" class="btn btn-primary">
       Back
     </button>
-    <button (click)="Pagination(PageIndex+1)"[disabled]="" class="btn btn-warning m-3">
+    <button (click)="Pagination(PageIndex+1)"[disabled]="" class="btn btn-primary m-3">
       Next
     </button>
   </div>

@@ -1,9 +1,10 @@
 export interface IAddEmployee {
+    id ?:number
     name: string,
-    userName: string,
     email: string,
-    password: string,
     phoneNumber: string,
+    address: string,
     branchIds:number[],
     groupId: number,
+    password ?: string       
 }

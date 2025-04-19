@@ -1,0 +1,25 @@
+<div class="container p-4 mt-5">
+    <h1 class="text-center text-muted mb-3">
+        {{govId==0?"Add New Governorate":"Edit Governorate"}}
+    </h1>
+    <form [formGroup]="govForm" (submit)="Submit()" >
+        <div class="mb-3">
+            <label for="GovernoratesName" class="form-label">Governorate Name</label>
+            <input type="text" class="form-control" id="GovernoratesName" aria-describedby="emailHelp"
+                placeholder="Enter Governorate Name" formControlName="name" />
+            @if(GetName.touched){
+                @if(GetName.hasError('required')){
+                    <div id="emailHelp" class="form-text text-danger">
+                        Governorate Name is required
+                    </div>
+                }
+            }      
+        </div>
+        <button type="submit" class="btn btn-dark d-block w-25">
+            {{govId==0?"Add New Governorate":"Edit Governorate"}}
+        </button>
+    </form>
+    <button  (click)="Back()" type="submit"  class="btn btn-warning d-block w-25 mt-2">
+        Back To List
+    </button>
+</div>

@@ -1,8 +1,8 @@
 <div class="container">
-    <h1 class="text-center text-muted mb-4">Cities</h1>
+    <h1 class="text-center text-muted mb-4">Governorates</h1>
     <div class="d-flex justify-content-between">
-        <button class="btn btn-outline-primary" routerLink="/City/0/edit">
-            Add New City
+        <button class="btn btn-outline-primary" routerLink="/governorates/0/edit">
+            Add New Governorates
         </button>
         <input type="text" class="form-control w-25" placeholder="Search ...." [(ngModel)]="Search" (input)="SearchHandel(Search)" />
     </div>
@@ -11,36 +11,28 @@
             <tr>
                 <th scope="col"></th>
                 <th scope="col">Name</th>
-                <th scope="col">Charge Price</th>
-                <th scope="col">PichUp Price</th>
-                <th scope="col">governorate Name</th>
                 <th scope="col">Status</th>
                 <th scope="col">Actions</th>
             </tr>
         </thead>
         <tbody>
-            @for (city of Cities?.data; track $index) {
+            @for (gov of governorates?.data; track $index) {
             <tr>
-                <th scope="row">{{city.id}}</th>
-                <td>{{city.name}}</td>
-                <td>{{city.chargePrice}}</td>
-                <td>{{city.pickUpPrice}}</td>
-                <td>{{city.governorateName}}</td>
+                <th scope="row">{{gov.id}}</th>
+                <th scope="row">{{gov.name}}</th>
                 <td>
                     <div class="form-check ms-3">
                         <input class="form-check-input" type="checkbox"
-                         [checked]="!city.isDeleted"
-                         (change)="isDeletHandler($event,city)">
+                         [checked]="!gov.isDeleted"
+                         (change)="isDeletHandler($event,gov)">
                     </div>
                 </td>
                 <td>
-                    <i class="text-info fs-4 mx-2 bi bi-pencil-square" routerLink="/City/{{city.id}}/edit"></i>
-                    <i (click)="DeleteHandler(city)" class="text-danger fs-4 mx-2 bi bi-trash-fill"></i>
+                    <i class="text-info fs-4 mx-2 bi bi-pencil-square" routerLink="/governorates/{{gov.id}}/edit"></i>
+                    <i (click)="DeleteHandler(gov)" class="text-danger fs-4 mx-2 bi bi-trash-fill"></i>
                 </td>
             </tr>
             }
-
-
         </tbody>
     </table>
     <button (click)="ApplyPagination(PageIndex-1)" [disabled]="PageIndex<=1" class="btn btn-primary">

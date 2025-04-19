@@ -64,6 +64,6 @@ export class SidebarComponent implements OnInit, OnDestroy {
   logout(): void {
     this.showLogoutConfirm = false
     this.authService.logout()
-    this.router.navigate(["/auth/login"])
+    this.router.navigate(['auth/login'])
   }
 }

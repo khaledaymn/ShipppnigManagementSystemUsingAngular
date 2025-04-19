@@ -10,6 +10,8 @@ import { StandardComponent } from "./pages/standard/standard.component"
 import { StandardFormComponent } from "./pages/standard-form/standard-form.component"
 import { MeduleComponent } from "./pages/medule/medule.component"
 import { GroupComponent } from "./pages/group/group.component"
+import { GovernoratesComponent } from "./pages/governorates/governorates.component"
+import { GovFormComponent } from "./pages/gov-form/gov-form.component"
 
 export const routes: Routes = [
   {
@@ -55,8 +57,10 @@ export const routes: Routes = [
     {path:'permissions',component:MeduleComponent},
 
     {
-      path: "governorates",
-      loadChildren: () => import("./pages/governorate/governorate.module").then((m) => m.GovernorateModule),
+      path: "governorates",component:GovernoratesComponent
+    },
+    {
+      path: "governorates/:id/edit",component:GovFormComponent
     },
     {
       path: "orders",

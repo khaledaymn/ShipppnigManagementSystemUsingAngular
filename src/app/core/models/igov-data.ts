@@ -1,5 +1,5 @@
 export interface IGovData {
-    id: number,
+    id?: number,
     name: string,
-    isDeleted?: boolean
-}
+    isDeleted?: boolean 
+}     

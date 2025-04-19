@@ -17,6 +17,9 @@ export class CityService {
   constructor(private http:HttpClient) { }
   GetAll(param:IBranchParams):Observable<ICityGetAllData>{
     let httpParams = new HttpParams().set('PageSize',param.pageSize).set('PageIndex',param.pageIndex)
+    if(param.SearchByName){
+      httpParams= httpParams.set('Search',param.SearchByName ) 
+    }
     return this.http.get<ICityGetAllData>("https://shippingmanagementsystem.runasp.net/Cities/GetAll",{params:httpParams})
   }
   GetById(id:number):Observable<ICityData>{

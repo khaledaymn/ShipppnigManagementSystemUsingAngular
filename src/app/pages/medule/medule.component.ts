@@ -31,6 +31,7 @@ import { MeduleService } from '../../core/services/medule.service';
 import { IMeduleGetAllData } from '../../core/models/imedule-get-all-data';
 import { IGroupPayload } from '../../core/models/igroup-payload';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-medule',
@@ -52,7 +53,8 @@ export class MeduleComponent implements OnInit {
 
   constructor(
     private meduleService: MeduleService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private router:Router
   ) {}
 
   ngOnInit(): void {
@@ -98,7 +100,6 @@ export class MeduleComponent implements OnInit {
   submit(): void {
     const payload: IGroupPayload = this.form.value;
     console.log('▶ Payload to send:', payload);
-    // هنا ابعت الـ payload للـ API، مثلاً:
-    // this.meduleService.createGroup(payload).subscribe(...)
+    this.router.navigateByUrl("/Group")
   }
 }

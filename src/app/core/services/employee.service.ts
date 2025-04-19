@@ -7,6 +7,7 @@ import { IAddEmployee } from '../models/iadd-employee';
 import { ICityToSelectIdForBranch } from '../models/icity-to-select-id-for-branch';
 import { IGroupPages } from '../models/igroup-pages';
 import { IUpdateEmployee } from '../models/iupdate-employee';
+import { GetAllEmpWithPagination } from '../models/get-all-emp-with-pagination';
 
 @Injectable({
   providedIn: 'root'
@@ -14,26 +15,27 @@ import { IUpdateEmployee } from '../models/iupdate-employee';
 export class EmployeeService {
   BaseUrl:string="http://localhost:5086/api/Employee"
   constructor(private http:HttpClient) { }
-  GetAll(params:IBranchParams):Observable<IGetAllEmployee[]>{
+  GetAll(params:IBranchParams):Observable<GetAllEmpWithPagination>{
     let httpParams = new HttpParams().
     set('PageSize',params.pageSize).set('PageIndex',params.pageIndex)
     if(params.SearchByName){
-      httpParams = httpParams.set('SearchByName',params.SearchByName)
+      httpParams = httpParams.set('Search',params.SearchByName)
     }
-    return this.http.get<IGetAllEmployee[]>(this.BaseUrl,{params:httpParams})
+    return this.http.get<GetAllEmpWithPagination>("https://shippingmanagementsystem.runasp.net/Employees/GetAll",{params:httpParams})
   }
-  GetById(id:string):Observable<IUpdateEmployee>{
-    return this.http.get<IUpdateEmployee>(`${this.BaseUrl}/${id}`)
+  GetById(id:string):Observable<IGetAllEmployee>{
+    return this.http.get<IGetAllEmployee>(`https://shippingmanagementsystem.runasp.net/Employees/GetById/${id}`)
   }
   DeleteEmployee(id:string):Observable<IGetAllEmployee>{
-    return this.http.delete<IGetAllEmployee>(`${this.BaseUrl}?id=${id}`)
+    return this.http.delete<IGetAllEmployee>(`https://shippingmanagementsystem.runasp.net/Employees/Delete/${id}`)
   }
+  
   AddEmployee(emp:IAddEmployee):Observable<string>{
-    return this.http.post<string>(this.BaseUrl,emp)
-  } 
-  UpdateEmployee(id:string,Emp:IUpdateEmployee):Observable<IUpdateEmployee>{
-    return this.http.put<IUpdateEmployee>(`${this.BaseUrl}?id=${id}`,Emp);
+    return this.http.post<string>("https://shippingmanagementsystem.runasp.net/Employees/Add",emp)
   }
+  UpdateEmployee(Emp:IAddEmployee):Observable<IAddEmployee>{
+    return this.http.put<IAddEmployee>(`https://shippingmanagementsystem.runasp.net/Employees/Update`,Emp);
+  } 
   GetAllGroup():Observable<IGroupPages>{
     return this.http.get<IGroupPages>("https://shippingmanagementsystem.runasp.net/Group/GetAll")
   }
